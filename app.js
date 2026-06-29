@@ -56,6 +56,13 @@ async function loadState() {
   renderAll();
 }
 
+async function resetCurrentOnFreshOpen() {
+  const sessionKey = "fantasyInventorySessionStarted";
+  if (sessionStorage.getItem(sessionKey)) return;
+  sessionStorage.setItem(sessionKey, "1");
+  await api("/api/current/reset", { method: "POST" });
+}
+
 function money(value) {
   return new Intl.NumberFormat("zh-TW", {
     style: "currency",
@@ -323,6 +330,15 @@ async function saveSnapshot() {
     method: "POST",
     body: JSON.stringify({ month: monthLabel() })
   });
+  aiStatus.textContent = "盤點紀錄已儲存，本次照片與 AI 結果已清空。";
+  if (photoInput) photoInput.value = "";
+  renderAll();
+}
+
+async function resetCurrentInventory() {
+  state = await api("/api/current/reset", { method: "POST" });
+  aiStatus.textContent = "已清空本次照片、AI 結果與盤點清單。";
+  if (photoInput) photoInput.value = "";
   renderAll();
 }
 
@@ -399,6 +415,7 @@ photoInput.addEventListener("change", async (event) => {
 
 document.querySelector("#aiDetectBtn").addEventListener("click", detectInventory);
 document.querySelector("#addBlankBtn").addEventListener("click", () => addInventoryItem());
+document.querySelector("#resetCurrentBtn").addEventListener("click", resetCurrentInventory);
 document.querySelector("#addCostBtn").addEventListener("click", addCostItem);
 document.querySelector("#newSnapshotBtn").addEventListener("click", saveSnapshot);
 document.querySelector("#exportExcelBtn").addEventListener("click", exportExcel);
@@ -414,6 +431,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-loadState().catch((error) => {
+resetCurrentOnFreshOpen().then(loadState).catch((error) => {
   aiStatus.textContent = `後端連線失敗：${error.message}`;
 });

@@ -155,6 +155,13 @@ async function handleApi(request, response, url) {
     return;
   }
 
+  if (method === "POST" && url.pathname === "/api/current/reset") {
+    resetCurrentInventory(db);
+    writeDb(db);
+    sendJson(response, 200, db);
+    return;
+  }
+
   if (method === "POST" && url.pathname === "/api/items") {
     db.items.push(normalizeItem(body));
     writeDb(db);
@@ -215,6 +222,7 @@ async function handleApi(request, response, url) {
     const existing = db.history.findIndex((entry) => entry.month === month);
     if (existing >= 0) db.history[existing] = record;
     else db.history.push(record);
+    resetCurrentInventory(db);
     writeDb(db);
     sendJson(response, 200, db);
     return;
@@ -462,6 +470,12 @@ function loadShopeeCatalog() {
 
 function readJsonFile(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, ""));
+}
+
+function resetCurrentInventory(db) {
+  db.items = [];
+  db.currentPhoto = "";
+  db.aiMode = "demo";
 }
 
 function readDb() {
