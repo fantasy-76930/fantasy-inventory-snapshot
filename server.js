@@ -6,6 +6,7 @@ const rootDir = __dirname;
 const dataDir = process.env.DATA_DIR || path.join(rootDir, "data");
 const dbPath = path.join(dataDir, "db.json");
 const seedCostsPath = path.join(rootDir, "seed-costs.json");
+const shopeeCatalogPath = path.join(rootDir, "shopee-catalog.json");
 const port = Number(process.env.PORT || 3000);
 const adminPassword = process.env.ADMIN_PASSWORD || "admin1234";
 const sessionSecret = process.env.SESSION_SECRET || "local-dev-secret";
@@ -191,6 +192,7 @@ async function handleApi(request, response, url) {
 }
 
 async function detectInventory(image, costs) {
+  const shopeeCatalog = loadShopeeCatalog();
   if (!process.env.OPENAI_API_KEY || !image) {
     return applyKnownCosts(demoDetectedItems, costs);
   }
@@ -204,6 +206,7 @@ async function detectInventory(image, costs) {
     "若照片是膜料、白板膜、黑板膜，且能判斷長度或使用者提供長度，calcMode 用 \"area\"，widthCm 和 lengthCm 用公分；才數公式是 widthCm × lengthCm ÷ 900。",
     "請盡量把品項名稱對應到成本表已存在的名稱。",
     `目前成本表品項：${costs.map((cost) => `${cost.name}(${cost.unit})`).join("、")}。`,
+    `蝦皮商品名稱參考：${shopeeCatalog.map((item) => item.name).join("、")}。`,
     "不要輸出 JSON 以外的文字。"
   ].join("\n");
 
@@ -249,7 +252,7 @@ function collectOutputText(result) {
 
 function applyKnownCosts(items, costs) {
   return items.map((item) => {
-    const match = costs.find((cost) => cost.name === item.name);
+    const match = findMatchingCost(item.name, costs);
     return match
       ? {
           ...item,
@@ -264,6 +267,23 @@ function applyKnownCosts(items, costs) {
         }
       : item;
   });
+}
+
+function findMatchingCost(name, costs) {
+  const normalizedName = normalizeText(name);
+  return (
+    costs.find((cost) => normalizeText(cost.name) === normalizedName) ||
+    costs.find((cost) => {
+      const normalizedCost = normalizeText(cost.name);
+      return normalizedCost && normalizedName && (normalizedName.includes(normalizedCost) || normalizedCost.includes(normalizedName));
+    })
+  );
+}
+
+function normalizeText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[\\s\\-_/()（）【】「」<>《》,，.。:：]+/g, "");
 }
 
 function normalizeItem(item) {
@@ -336,6 +356,16 @@ function loadSeedCosts() {
   if (!fs.existsSync(seedCostsPath)) return [];
   try {
     const parsed = JSON.parse(fs.readFileSync(seedCostsPath, "utf8"));
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function loadShopeeCatalog() {
+  if (!fs.existsSync(shopeeCatalogPath)) return [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(shopeeCatalogPath, "utf8"));
     return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];

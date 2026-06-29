@@ -82,3 +82,5 @@ DATA_DIR=/data
 ## 進銷存資料
 
 `seed-costs.json` 是從 Access 進銷存商品資料匯出的成本種子資料。系統啟動時會自動合併缺少的品項到成本表。
+
+`shopee-catalog.json` 是蝦皮店鋪商品名稱參考資料，AI 辨識時會把這些名稱當作比對詞庫。
