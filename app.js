@@ -29,10 +29,25 @@ async function api(path, options = {}) {
 
   if (!response.ok) {
     const message = await response.text();
-    throw new Error(message || `API 錯誤：${response.status}`);
+    throw new Error(readableError(message, response.status));
   }
 
   return response.json();
+}
+
+function readableError(message, status) {
+  if (message.includes("insufficient_quota")) {
+    return "OpenAI 額度不足，請到 OpenAI Platform 檢查 Billing 或加值後再試。";
+  }
+  if (message.includes("invalid_api_key")) {
+    return "OpenAI API Key 無效，請到 Render 確認 OPENAI_API_KEY。";
+  }
+  try {
+    const parsed = JSON.parse(message);
+    if (parsed.error) return parsed.error;
+  } catch {
+  }
+  return message || `API 錯誤：${status}`;
 }
 
 async function loadState() {
@@ -76,6 +91,7 @@ function renderInventory() {
 
   state.items.forEach((item) => {
     const row = document.querySelector("#inventoryRowTemplate").content.firstElementChild.cloneNode(true);
+    labelCells(row, ["分類", "品項", "計算", "數量", "盤點單位", "高度cm", "長度cm", "換算", "成本單位", "單位成本", "小計", ""]);
     row.querySelector(".category-input").innerHTML = makeCategoryOptions(item.category);
     row.querySelector(".name-input").value = item.name || "";
     row.querySelector(".calc-mode-input").value = item.calcMode || "count";
@@ -154,6 +170,7 @@ function renderCosts() {
 
   state.costs.forEach((cost) => {
     const row = document.querySelector("#costRowTemplate").content.firstElementChild.cloneNode(true);
+    labelCells(row, ["分類", "品項", "盤點單位", "換算", "成本單位", "單位成本", ""]);
     row.querySelector(".cost-category-input").innerHTML = makeCategoryOptions(cost.category);
     row.querySelector(".cost-name-input").value = cost.name || "";
     row.querySelector(".cost-unit-input").value = cost.unit || "";
@@ -168,6 +185,12 @@ function renderCosts() {
     row.querySelector(".delete-cost").addEventListener("click", () => deleteCost(cost.id));
 
     costBody.appendChild(row);
+  });
+}
+
+function labelCells(row, labels) {
+  [...row.children].forEach((cell, index) => {
+    if (labels[index]) cell.dataset.label = labels[index];
   });
 }
 

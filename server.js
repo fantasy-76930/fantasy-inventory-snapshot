@@ -282,7 +282,7 @@ async function detectInventory(image, costs) {
 
   if (!response.ok) {
     const detail = await response.text();
-    throw new Error(`OpenAI 辨識失敗：${detail}`);
+    throw new Error(`OpenAI 辨識失敗：${formatOpenAiError(detail)}`);
   }
 
   const result = await response.json();
@@ -298,6 +298,21 @@ function collectOutputText(result) {
     .map((content) => content.text || "")
     .join("")
     .trim();
+}
+
+function formatOpenAiError(detail) {
+  if (detail.includes("insufficient_quota")) {
+    return "OpenAI 額度不足，請到 OpenAI Platform 檢查 Billing 或加值後再試。";
+  }
+  if (detail.includes("invalid_api_key")) {
+    return "OpenAI API Key 無效，請到 Render 確認 OPENAI_API_KEY。";
+  }
+  try {
+    const parsed = JSON.parse(detail);
+    return parsed.error?.message || detail;
+  } catch {
+    return detail;
+  }
 }
 
 function applyKnownCosts(items, costs) {
