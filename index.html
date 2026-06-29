@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#156064" />
+    <title>奇幻庫存快拍系統</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon-192.svg" />
+    <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PWA 盤點工具</p>
+          <h1>奇幻庫存快拍系統</h1>
+        </div>
+        <div class="total-box">
+          <span>總庫存金額</span>
+          <strong id="grandTotal">$0</strong>
+        </div>
+        <button class="secondary-button logout-button" id="logoutBtn" type="button">登出</button>
+      </header>
+
+      <main class="workspace">
+        <section class="capture-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">快拍辨識</p>
+              <h2>拍照上傳</h2>
+            </div>
+            <button class="ghost-button" id="newSnapshotBtn" type="button">新增盤點紀錄</button>
+          </div>
+
+          <label class="upload-drop" for="photoInput">
+            <input id="photoInput" type="file" accept="image/*" capture="environment" />
+            <span class="camera-icon">▣</span>
+            <strong>拍照或選擇庫存照片</strong>
+            <small>上傳後可按 AI 辨識，再手動修正數量與分類。</small>
+          </label>
+
+          <div class="photo-preview" id="photoPreview">
+            <span>尚未上傳照片</span>
+          </div>
+
+          <div class="actions-row">
+            <button id="aiDetectBtn" type="button">AI 辨識庫存</button>
+            <button class="secondary-button" id="addBlankBtn" type="button">手動新增品項</button>
+          </div>
+
+          <div class="hint-box">
+            <strong>AI 狀態</strong>
+            <p id="aiStatus">目前為離線示範辨識。之後可接 OpenAI Vision 或公司內部 API，把照片轉成盤點品項。</p>
+          </div>
+        </section>
+
+        <section class="inventory-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">盤點清單</p>
+              <h2>手動修正數量</h2>
+            </div>
+            <div class="compact-stat">
+              <span>本次筆數</span>
+              <strong id="itemCount">0</strong>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>分類</th>
+                  <th>品項</th>
+                  <th>數量</th>
+                  <th>單位</th>
+                  <th>單位成本</th>
+                  <th>小計</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="cost-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">常用品項成本表</p>
+              <h2>成本資料</h2>
+            </div>
+            <button class="secondary-button" id="addCostBtn" type="button">新增成本</button>
+          </div>
+
+          <div class="table-wrap small-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>分類</th>
+                  <th>品項</th>
+                  <th>單位</th>
+                  <th>成本</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="costBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="history-panel">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">每月盤點紀錄</p>
+              <h2>歷史變化</h2>
+            </div>
+            <div class="actions-row tight">
+              <button class="secondary-button" id="exportExcelBtn" type="button">匯出 Excel</button>
+              <button class="secondary-button" id="exportPdfBtn" type="button">匯出 PDF</button>
+            </div>
+          </div>
+
+          <div class="history-grid" id="historyGrid"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="inventoryRowTemplate">
+      <tr>
+        <td><select class="category-input"></select></td>
+        <td><input class="name-input" type="text" placeholder="品項名稱" /></td>
+        <td><input class="qty-input" type="number" min="0" step="1" /></td>
+        <td><input class="unit-input" type="text" placeholder="單位" /></td>
+        <td><input class="cost-input" type="number" min="0" step="1" /></td>
+        <td class="subtotal-cell">$0</td>
+        <td><button class="icon-button delete-row" type="button" title="刪除">×</button></td>
+      </tr>
+    </template>
+
+    <template id="costRowTemplate">
+      <tr>
+        <td><select class="cost-category-input"></select></td>
+        <td><input class="cost-name-input" type="text" placeholder="品項名稱" /></td>
+        <td><input class="cost-unit-input" type="text" placeholder="單位" /></td>
+        <td><input class="cost-value-input" type="number" min="0" step="1" /></td>
+        <td><button class="icon-button delete-cost" type="button" title="刪除">×</button></td>
+      </tr>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>

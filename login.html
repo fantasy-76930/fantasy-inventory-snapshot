@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#156064" />
+    <title>管理員登入｜奇幻庫存快拍系統</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="login-page">
+      <form class="login-box" id="loginForm">
+        <p class="eyebrow">管理員</p>
+        <h1>奇幻庫存快拍系統</h1>
+        <label>
+          <span>登入密碼</span>
+          <input id="passwordInput" type="password" autocomplete="current-password" required autofocus />
+        </label>
+        <button type="submit">登入</button>
+        <p class="login-error" id="loginError"></p>
+      </form>
+    </main>
+
+    <script>
+      document.querySelector("#loginForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const loginError = document.querySelector("#loginError");
+        loginError.textContent = "";
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: document.querySelector("#passwordInput").value })
+        });
+        if (response.ok) {
+          location.href = "/";
+          return;
+        }
+        const result = await response.json().catch(() => ({ error: "登入失敗" }));
+        loginError.textContent = result.error || "登入失敗";
+      });
+    </script>
+  </body>
+</html>

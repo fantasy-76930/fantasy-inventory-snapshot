@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: fantasy-inventory-snapshot
+    runtime: node
+    plan: starter
+    buildCommand: ""
+    startCommand: "node server.js"
+    healthCheckPath: /health
+    envVars:
+      - key: DATA_DIR
+        value: /data
+      - key: NODE_VERSION
+        value: 22
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5.4-mini
+    disk:
+      name: inventory-data
+      mountPath: /data
+      sizeGB: 1

@@ -1,0 +1,13 @@
+{
+  "name": "fantasy-inventory-snapshot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "奇幻庫存快拍系統：PWA 前端 + 後端 API + 本機資料庫檔案。",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
