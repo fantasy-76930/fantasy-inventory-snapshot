@@ -71,15 +71,18 @@ function renderInventory() {
   inventoryBody.innerHTML = "";
 
   if (!state.items.length) {
-    inventoryBody.innerHTML = `<tr><td colspan="7" class="empty-state">尚無盤點品項。可先拍照辨識或手動新增。</td></tr>`;
+    inventoryBody.innerHTML = `<tr><td colspan="11" class="empty-state">尚無盤點品項。可先拍照辨識或手動新增。</td></tr>`;
   }
 
   state.items.forEach((item) => {
     const row = document.querySelector("#inventoryRowTemplate").content.firstElementChild.cloneNode(true);
     row.querySelector(".category-input").innerHTML = makeCategoryOptions(item.category);
     row.querySelector(".name-input").value = item.name || "";
-    row.querySelector(".qty-input").value = item.qty ?? 0;
+    row.querySelector(".calc-mode-input").value = item.calcMode || "count";
+    row.querySelector(".qty-input").value = item.calcMode === "area" ? measuredQty(item) : item.qty ?? 0;
     row.querySelector(".unit-input").value = item.unit || "";
+    row.querySelector(".width-input").value = item.widthCm || "";
+    row.querySelector(".length-input").value = item.lengthCm || "";
     row.querySelector(".conversion-input").value = item.conversionQty ?? 1;
     row.querySelector(".cost-unit-input").value = item.costUnit || item.unit || "";
     row.querySelector(".cost-input").value = item.cost ?? 0;
@@ -102,8 +105,11 @@ async function updateInventoryItem(id, row) {
   const updated = {
     category: row.querySelector(".category-input").value,
     name: row.querySelector(".name-input").value.trim(),
+    calcMode: row.querySelector(".calc-mode-input").value,
     qty: Number(row.querySelector(".qty-input").value) || 0,
     unit: row.querySelector(".unit-input").value.trim(),
+    widthCm: Number(row.querySelector(".width-input").value) || 0,
+    lengthCm: Number(row.querySelector(".length-input").value) || 0,
     conversionQty: Number(row.querySelector(".conversion-input").value) || 1,
     costUnit: row.querySelector(".cost-unit-input").value.trim(),
     cost: Number(row.querySelector(".cost-input").value) || 0
@@ -128,6 +134,9 @@ async function fillCostFromTable(id, row) {
       unit: row.querySelector(".unit-input").value.trim() || match.unit,
       conversionQty: match.conversionQty,
       costUnit: match.costUnit,
+      calcMode: match.calcMode,
+      widthCm: match.widthCm,
+      lengthCm: match.lengthCm,
       cost: match.cost,
       qty: Number(row.querySelector(".qty-input").value) || 0
     })
@@ -189,7 +198,15 @@ function updateTotals() {
 }
 
 function itemSubtotal(item) {
-  return (Number(item.qty) || 0) * (Number(item.conversionQty) || 1) * (Number(item.cost) || 0);
+  return measuredQty(item) * (Number(item.conversionQty) || 1) * (Number(item.cost) || 0);
+}
+
+function measuredQty(item) {
+  if (item.calcMode === "area") {
+    const area = ((Number(item.widthCm) || 0) * (Number(item.lengthCm) || 0)) / 900;
+    return Math.round(area * 100) / 100;
+  }
+  return Number(item.qty) || 0;
 }
 
 function renderHistory() {
@@ -232,8 +249,11 @@ async function addInventoryItem(item = {}) {
     body: JSON.stringify({
       category: item.category || categories[0],
       name: item.name || "",
+      calcMode: item.calcMode || "count",
       qty: item.qty ?? 1,
       unit: item.unit || "個",
+      widthCm: item.widthCm || 0,
+      lengthCm: item.lengthCm || 0,
       conversionQty: item.conversionQty ?? 1,
       costUnit: item.costUnit || item.unit || "個",
       cost: item.cost ?? 0
@@ -293,8 +313,11 @@ function exportPdf() {
       <tr>
         <td>${item.category}</td>
         <td>${item.name}</td>
-        <td>${item.qty}</td>
+        <td>${item.calcMode === "area" ? "才數" : "一般"}</td>
+        <td>${measuredQty(item)}</td>
         <td>${item.unit}</td>
+        <td>${item.widthCm || ""}</td>
+        <td>${item.lengthCm || ""}</td>
         <td>${item.conversionQty}</td>
         <td>${item.costUnit}</td>
         <td>${money(item.cost)}</td>
@@ -323,7 +346,7 @@ function exportPdf() {
         <div>盤點月份：${monthLabel()}</div>
         <div class="total">總庫存金額：${money(total)}</div>
         <table>
-          <thead><tr><th>分類</th><th>品項</th><th>數量</th><th>盤點單位</th><th>換算</th><th>成本單位</th><th>單位成本</th><th>小計</th></tr></thead>
+          <thead><tr><th>分類</th><th>品項</th><th>計算</th><th>數量/才數</th><th>盤點單位</th><th>高度cm</th><th>長度cm</th><th>換算</th><th>成本單位</th><th>單位成本</th><th>小計</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
         <script>window.onload = () => window.print();<\/script>

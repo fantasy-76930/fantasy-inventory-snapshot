@@ -74,8 +74,11 @@
                 <tr>
                   <th>分類</th>
                   <th>品項</th>
+                  <th>計算</th>
                   <th>數量</th>
                   <th>盤點單位</th>
+                  <th>高度cm</th>
+                  <th>長度cm</th>
                   <th>換算</th>
                   <th>成本單位</th>
                   <th>單位成本</th>
@@ -136,8 +139,16 @@
       <tr>
         <td><select class="category-input"></select></td>
         <td><input class="name-input" type="text" placeholder="品項名稱" /></td>
+        <td>
+          <select class="calc-mode-input">
+            <option value="count">一般</option>
+            <option value="area">才數</option>
+          </select>
+        </td>
         <td><input class="qty-input" type="number" min="0" step="1" /></td>
         <td><input class="unit-input" type="text" placeholder="單位" /></td>
+        <td><input class="width-input" type="number" min="0" step="0.1" placeholder="120" /></td>
+        <td><input class="length-input" type="number" min="0" step="0.1" placeholder="5000" /></td>
         <td><input class="conversion-input" type="number" min="0" step="1" /></td>
         <td><input class="cost-unit-input" type="text" placeholder="成本單位" /></td>
         <td><input class="cost-input" type="number" min="0" step="1" /></td>

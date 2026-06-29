@@ -26,6 +26,7 @@ const demoDetectedItems = [
   { category: "白板膜", name: "白板膜卷材", qty: 2, unit: "卷", cost: 3200 },
   { category: "框料", name: "鋁框料", qty: 18, unit: "支", cost: 180 },
   { category: "五金", name: "角碼", qty: 6, unit: "包", cost: 95 },
+  { category: "黑板膜", name: "背膠式水擦黑板膜(寬122cm)/才", calcMode: "area", widthCm: 120, lengthCm: 5000, unit: "才", costUnit: "才", cost: 50 },
   { category: "耗材", name: "粉筆", qty: 1, unit: "箱", cost: 60, conversionQty: 120, costUnit: "盒" }
 ];
 
@@ -196,10 +197,11 @@ async function detectInventory(image, costs) {
 
   const prompt = [
     "你是庫存盤點助理。請從照片辨識庫存品項，輸出 JSON 陣列。",
-    "欄位只能包含 category, name, qty, unit。",
+    "欄位只能包含 category, name, qty, unit, calcMode, widthCm, lengthCm。",
     `category 必須是以下之一：${categories.join("、")}。`,
     "qty 請用數字，unit 使用照片上最自然的盤點單位，例如箱、盒、卷、支、包、台。",
     "若照片看起來是一整箱粉筆，請輸出 qty: 1, unit: \"箱\"。",
+    "若照片是膜料、白板膜、黑板膜，且能判斷長度或使用者提供長度，calcMode 用 \"area\"，widthCm 和 lengthCm 用公分；才數公式是 widthCm × lengthCm ÷ 900。",
     "請盡量把品項名稱對應到成本表已存在的名稱。",
     `目前成本表品項：${costs.map((cost) => `${cost.name}(${cost.unit})`).join("、")}。`,
     "不要輸出 JSON 以外的文字。"
@@ -255,7 +257,10 @@ function applyKnownCosts(items, costs) {
           unit: item.unit || match.unit,
           cost: match.cost,
           conversionQty: match.conversionQty,
-          costUnit: match.costUnit
+          costUnit: match.costUnit,
+          calcMode: item.calcMode || match.calcMode,
+          widthCm: item.widthCm || match.widthCm,
+          lengthCm: item.lengthCm || match.lengthCm
         }
       : item;
   });
@@ -270,6 +275,9 @@ function normalizeItem(item) {
     unit: String(item.unit || "個"),
     conversionQty: Number(item.conversionQty) || 1,
     costUnit: String(item.costUnit || item.unit || "個"),
+    calcMode: item.calcMode === "area" ? "area" : "count",
+    widthCm: Number(item.widthCm) || 0,
+    lengthCm: Number(item.lengthCm) || 0,
     cost: Number(item.cost) || 0
   };
 }
@@ -282,6 +290,9 @@ function normalizeCost(cost) {
     unit: String(cost.unit || "個"),
     conversionQty: Number(cost.conversionQty) || 1,
     costUnit: String(cost.costUnit || cost.unit || "個"),
+    calcMode: cost.calcMode === "area" ? "area" : "count",
+    widthCm: Number(cost.widthCm) || 0,
+    lengthCm: Number(cost.lengthCm) || 0,
     cost: Number(cost.cost) || 0
   };
 }
@@ -412,12 +423,15 @@ function parseCookies(cookieHeader) {
 
 function sendExcel(response, db) {
   const rows = [
-    ["分類", "品項", "數量", "盤點單位", "換算數量", "成本單位", "單位成本", "小計"],
+    ["分類", "品項", "計算", "數量/才數", "盤點單位", "高度cm", "長度cm", "換算數量", "成本單位", "單位成本", "小計"],
     ...db.items.map((item) => [
       item.category,
       item.name,
-      item.qty,
+      item.calcMode === "area" ? "才數" : "一般",
+      measuredQty(item),
       item.unit,
+      item.widthCm || "",
+      item.lengthCm || "",
       item.conversionQty,
       item.costUnit,
       item.cost,
@@ -446,7 +460,15 @@ function inventoryTotal(items) {
 }
 
 function itemSubtotal(item) {
-  return (Number(item.qty) || 0) * (Number(item.conversionQty) || 1) * (Number(item.cost) || 0);
+  return measuredQty(item) * (Number(item.conversionQty) || 1) * (Number(item.cost) || 0);
+}
+
+function measuredQty(item) {
+  if (item.calcMode === "area") {
+    const area = ((Number(item.widthCm) || 0) * (Number(item.lengthCm) || 0)) / 900;
+    return Math.round(area * 100) / 100;
+  }
+  return Number(item.qty) || 0;
 }
 
 function currentMonth() {
