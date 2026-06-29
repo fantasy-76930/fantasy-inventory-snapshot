@@ -106,5 +106,29 @@
     "priceText": "$5,980",
     "categoryHint": "耗材",
     "url": "https://shopee.tw/yadayoyo"
+  },
+  {
+    "name": "Sangbo Chalk 白色粉筆 外箱",
+    "priceText": "1箱=120盒，1盒成本60",
+    "categoryHint": "耗材",
+    "url": "local-reference"
+  },
+  {
+    "name": "ZITEC WellBeing Marker 補充墨水 外箱",
+    "priceText": "1盒=6瓶，1箱=96瓶",
+    "categoryHint": "耗材",
+    "url": "local-reference"
+  },
+  {
+    "name": "APIO 白板筆",
+    "priceText": "1盒=10支",
+    "categoryHint": "耗材",
+    "url": "local-reference"
+  },
+  {
+    "name": "Board Cleaner 保養液噴瓶",
+    "priceText": "1箱=25瓶",
+    "categoryHint": "耗材",
+    "url": "local-reference"
   }
 ]

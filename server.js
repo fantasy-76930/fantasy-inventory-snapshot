@@ -20,6 +20,11 @@ const defaultCosts = [
   { id: makeId(), category: "五金", name: "角碼", unit: "包", conversionQty: 1, costUnit: "包", cost: 95 },
   { id: makeId(), category: "耗材", name: "雙面膠", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 120 },
   { id: makeId(), category: "耗材", name: "粉筆", unit: "箱", conversionQty: 120, costUnit: "盒", cost: 60 },
+  { id: makeId(), category: "耗材", name: "Sangbo Chalk 白色粉筆", unit: "箱", conversionQty: 120, costUnit: "盒", cost: 60 },
+  { id: makeId(), category: "耗材", name: "ZITEC WellBeing Marker 補充墨水", unit: "盒", conversionQty: 6, costUnit: "瓶", cost: 75 },
+  { id: makeId(), category: "耗材", name: "ZITEC WellBeing Marker 補充墨水", unit: "箱", conversionQty: 96, costUnit: "瓶", cost: 75 },
+  { id: makeId(), category: "耗材", name: "APIO 白板筆", unit: "盒", conversionQty: 10, costUnit: "支", cost: 58 },
+  { id: makeId(), category: "耗材", name: "Board Cleaner 保養液噴瓶", unit: "箱", conversionQty: 25, costUnit: "瓶", cost: 180 },
   { id: makeId(), category: "設備", name: "裁切機", unit: "台", conversionQty: 1, costUnit: "台", cost: 16800 }
 ];
 const demoDetectedItems = [
@@ -28,7 +33,48 @@ const demoDetectedItems = [
   { category: "框料", name: "鋁框料", qty: 18, unit: "支", cost: 180 },
   { category: "五金", name: "角碼", qty: 6, unit: "包", cost: 95 },
   { category: "黑板膜", name: "背膠式水擦黑板膜(寬122cm)/才", calcMode: "area", widthCm: 120, lengthCm: 5000, unit: "才", costUnit: "才", cost: 50 },
-  { category: "耗材", name: "粉筆", qty: 1, unit: "箱", cost: 60, conversionQty: 120, costUnit: "盒" }
+  { category: "耗材", name: "粉筆", qty: 1, unit: "箱", cost: 60, conversionQty: 120, costUnit: "盒" },
+  { category: "耗材", name: "ZITEC WellBeing Marker 補充墨水", qty: 1, unit: "箱", conversionQty: 96, costUnit: "瓶", cost: 75 },
+  { category: "耗材", name: "Board Cleaner 保養液噴瓶", qty: 1, unit: "箱", conversionQty: 25, costUnit: "瓶", cost: 180 }
+];
+const packagingRules = [
+  {
+    keywords: ["chalk", "sangbo chalk", "粉筆", "水擦粉筆", "環保水擦粉筆"],
+    name: "Sangbo Chalk 白色粉筆",
+    category: "耗材",
+    rules: [
+      { unit: "箱", conversionQty: 120, costUnit: "盒" },
+      { unit: "盒", conversionQty: 1, costUnit: "盒" }
+    ]
+  },
+  {
+    keywords: ["zitec", "wellbeing marker", "xq perfect ink", "補充墨水", "白板筆墨水", "墨水"],
+    name: "ZITEC WellBeing Marker 補充墨水",
+    category: "耗材",
+    rules: [
+      { unit: "盒", conversionQty: 6, costUnit: "瓶" },
+      { unit: "箱", conversionQty: 96, costUnit: "瓶" },
+      { unit: "瓶", conversionQty: 1, costUnit: "瓶" }
+    ]
+  },
+  {
+    keywords: ["apio", "白板筆", "wellbeing marker"],
+    name: "APIO 白板筆",
+    category: "耗材",
+    rules: [
+      { unit: "盒", conversionQty: 10, costUnit: "支" },
+      { unit: "支", conversionQty: 1, costUnit: "支" }
+    ]
+  },
+  {
+    keywords: ["board cleaner", "保養液", "噴瓶", "cleaner"],
+    name: "Board Cleaner 保養液噴瓶",
+    category: "耗材",
+    rules: [
+      { unit: "箱", conversionQty: 25, costUnit: "瓶" },
+      { unit: "瓶", conversionQty: 1, costUnit: "瓶" }
+    ]
+  }
 ];
 
 ensureDb();
@@ -203,6 +249,10 @@ async function detectInventory(image, costs) {
     `category 必須是以下之一：${categories.join("、")}。`,
     "qty 請用數字，unit 使用照片上最自然的盤點單位，例如箱、盒、卷、支、包、台。",
     "若照片看起來是一整箱粉筆，請輸出 qty: 1, unit: \"箱\"。",
+    "包裝規則：Chalk/Sangbo 粉筆 1箱=120盒，成本以盒計。",
+    "包裝規則：ZITEC/WellBeing Marker 補充墨水 1盒=6瓶，1箱=96瓶，成本以瓶計。",
+    "包裝規則：APIO 白板筆 1盒=10支，整箱數量未知，若只看到散盒請用盒計。",
+    "包裝規則：Board Cleaner 保養液噴瓶 1箱=25瓶，成本以瓶計。",
     "若照片是膜料、白板膜、黑板膜，且能判斷長度或使用者提供長度，calcMode 用 \"area\"，widthCm 和 lengthCm 用公分；才數公式是 widthCm × lengthCm ÷ 900。",
     "請盡量把品項名稱對應到成本表已存在的名稱。",
     `目前成本表品項：${costs.map((cost) => `${cost.name}(${cost.unit})`).join("、")}。`,
@@ -252,26 +302,47 @@ function collectOutputText(result) {
 
 function applyKnownCosts(items, costs) {
   return items.map((item) => {
-    const match = findMatchingCost(item.name, costs);
+    const packagingRule = findPackagingRule(item.name);
+    const itemWithRule = applyPackagingRule(item, packagingRule);
+    const match = findMatchingCost(itemWithRule.name, costs, itemWithRule.unit);
     return match
       ? {
-          ...item,
+          ...itemWithRule,
           category: match.category,
-          unit: item.unit || match.unit,
+          unit: itemWithRule.unit || match.unit,
           cost: match.cost,
-          conversionQty: match.conversionQty,
-          costUnit: match.costUnit,
-          calcMode: item.calcMode || match.calcMode,
-          widthCm: item.widthCm || match.widthCm,
-          lengthCm: item.lengthCm || match.lengthCm
+          conversionQty: itemWithRule.conversionQty || match.conversionQty,
+          costUnit: itemWithRule.costUnit || match.costUnit,
+          calcMode: itemWithRule.calcMode || match.calcMode,
+          widthCm: itemWithRule.widthCm || match.widthCm,
+          lengthCm: itemWithRule.lengthCm || match.lengthCm
         }
-      : item;
+      : itemWithRule;
   });
 }
 
-function findMatchingCost(name, costs) {
+function applyPackagingRule(item, packagingRule) {
+  if (!packagingRule) return item;
+  const rule = packagingRule.rules.find((entry) => normalizeText(entry.unit) === normalizeText(item.unit)) || packagingRule.rules[0];
+  return {
+    ...item,
+    name: packagingRule.name,
+    category: packagingRule.category,
+    unit: item.unit || rule.unit,
+    conversionQty: rule.conversionQty,
+    costUnit: rule.costUnit
+  };
+}
+
+function findPackagingRule(name) {
+  const normalizedName = normalizeText(name);
+  return packagingRules.find((rule) => rule.keywords.some((keyword) => normalizedName.includes(normalizeText(keyword))));
+}
+
+function findMatchingCost(name, costs, unit) {
   const normalizedName = normalizeText(name);
   return (
+    costs.find((cost) => normalizeText(cost.name) === normalizedName && normalizeText(cost.unit) === normalizeText(unit)) ||
     costs.find((cost) => normalizeText(cost.name) === normalizedName) ||
     costs.find((cost) => {
       const normalizedCost = normalizeText(cost.name);
@@ -347,7 +418,9 @@ function migrateDb(db) {
 function mergeCostSeeds(db, costs) {
   costs.forEach((seedCost) => {
     const normalized = normalizeCost(seedCost);
-    const exists = db.costs.some((cost) => cost.name === normalized.name && cost.costUnit === normalized.costUnit);
+    const exists = db.costs.some(
+      (cost) => cost.name === normalized.name && cost.unit === normalized.unit && cost.costUnit === normalized.costUnit
+    );
     if (!exists) db.costs.push(normalized);
   });
 }
