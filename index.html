@@ -75,7 +75,9 @@
                   <th>分類</th>
                   <th>品項</th>
                   <th>數量</th>
-                  <th>單位</th>
+                  <th>盤點單位</th>
+                  <th>換算</th>
+                  <th>成本單位</th>
                   <th>單位成本</th>
                   <th>小計</th>
                   <th></th>
@@ -101,8 +103,10 @@
                 <tr>
                   <th>分類</th>
                   <th>品項</th>
-                  <th>單位</th>
-                  <th>成本</th>
+                  <th>盤點單位</th>
+                  <th>換算</th>
+                  <th>成本單位</th>
+                  <th>單位成本</th>
                   <th></th>
                 </tr>
               </thead>
@@ -134,6 +138,8 @@
         <td><input class="name-input" type="text" placeholder="品項名稱" /></td>
         <td><input class="qty-input" type="number" min="0" step="1" /></td>
         <td><input class="unit-input" type="text" placeholder="單位" /></td>
+        <td><input class="conversion-input" type="number" min="0" step="1" /></td>
+        <td><input class="cost-unit-input" type="text" placeholder="成本單位" /></td>
         <td><input class="cost-input" type="number" min="0" step="1" /></td>
         <td class="subtotal-cell">$0</td>
         <td><button class="icon-button delete-row" type="button" title="刪除">×</button></td>
@@ -144,7 +150,9 @@
       <tr>
         <td><select class="cost-category-input"></select></td>
         <td><input class="cost-name-input" type="text" placeholder="品項名稱" /></td>
-        <td><input class="cost-unit-input" type="text" placeholder="單位" /></td>
+        <td><input class="cost-unit-input" type="text" placeholder="箱" /></td>
+        <td><input class="cost-conversion-input" type="number" min="0" step="1" /></td>
+        <td><input class="cost-base-unit-input" type="text" placeholder="盒" /></td>
         <td><input class="cost-value-input" type="number" min="0" step="1" /></td>
         <td><button class="icon-button delete-cost" type="button" title="刪除">×</button></td>
       </tr>

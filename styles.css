@@ -250,11 +250,11 @@ section {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 780px;
+  min-width: 980px;
 }
 
 .small-table table {
-  min-width: 520px;
+  min-width: 720px;
 }
 
 th,

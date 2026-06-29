@@ -12,18 +12,20 @@ const sessionCookieName = "fantasy_inventory_session";
 
 const categories = ["黑板膜", "白板膜", "框料", "五金", "耗材", "設備"];
 const defaultCosts = [
-  { id: makeId(), category: "黑板膜", name: "黑板膜卷材", unit: "卷", cost: 2800 },
-  { id: makeId(), category: "白板膜", name: "白板膜卷材", unit: "卷", cost: 3200 },
-  { id: makeId(), category: "框料", name: "鋁框料", unit: "支", cost: 180 },
-  { id: makeId(), category: "五金", name: "角碼", unit: "包", cost: 95 },
-  { id: makeId(), category: "耗材", name: "雙面膠", unit: "卷", cost: 120 },
-  { id: makeId(), category: "設備", name: "裁切機", unit: "台", cost: 16800 }
+  { id: makeId(), category: "黑板膜", name: "黑板膜卷材", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 2800 },
+  { id: makeId(), category: "白板膜", name: "白板膜卷材", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 3200 },
+  { id: makeId(), category: "框料", name: "鋁框料", unit: "支", conversionQty: 1, costUnit: "支", cost: 180 },
+  { id: makeId(), category: "五金", name: "角碼", unit: "包", conversionQty: 1, costUnit: "包", cost: 95 },
+  { id: makeId(), category: "耗材", name: "雙面膠", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 120 },
+  { id: makeId(), category: "耗材", name: "粉筆", unit: "箱", conversionQty: 120, costUnit: "盒", cost: 60 },
+  { id: makeId(), category: "設備", name: "裁切機", unit: "台", conversionQty: 1, costUnit: "台", cost: 16800 }
 ];
 const demoDetectedItems = [
   { category: "黑板膜", name: "黑板膜卷材", qty: 3, unit: "卷", cost: 2800 },
   { category: "白板膜", name: "白板膜卷材", qty: 2, unit: "卷", cost: 3200 },
   { category: "框料", name: "鋁框料", qty: 18, unit: "支", cost: 180 },
-  { category: "五金", name: "角碼", qty: 6, unit: "包", cost: 95 }
+  { category: "五金", name: "角碼", qty: 6, unit: "包", cost: 95 },
+  { category: "耗材", name: "粉筆", qty: 1, unit: "箱", cost: 60, conversionQty: 120, costUnit: "盒" }
 ];
 
 ensureDb();
@@ -91,6 +93,8 @@ async function handleApi(request, response, url) {
   }
 
   if (method === "GET" && url.pathname === "/api/state") {
+    migrateDb(db);
+    writeDb(db);
     sendJson(response, 200, db);
     return;
   }
@@ -191,9 +195,13 @@ async function detectInventory(image, costs) {
 
   const prompt = [
     "你是庫存盤點助理。請從照片辨識庫存品項，輸出 JSON 陣列。",
-    "欄位只能包含 category, name, qty, unit, cost。",
+    "欄位只能包含 category, name, qty, unit。",
     `category 必須是以下之一：${categories.join("、")}。`,
-    "qty 請用數字。若無法確定成本，cost 設為 0。不要輸出 JSON 以外的文字。"
+    "qty 請用數字，unit 使用照片上最自然的盤點單位，例如箱、盒、卷、支、包、台。",
+    "若照片看起來是一整箱粉筆，請輸出 qty: 1, unit: \"箱\"。",
+    "請盡量把品項名稱對應到成本表已存在的名稱。",
+    `目前成本表品項：${costs.map((cost) => `${cost.name}(${cost.unit})`).join("、")}。`,
+    "不要輸出 JSON 以外的文字。"
   ].join("\n");
 
   const response = await fetch("https://api.openai.com/v1/responses", {
@@ -203,7 +211,7 @@ async function detectInventory(image, costs) {
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
     },
     body: JSON.stringify({
-      model: process.env.OPENAI_MODEL || "gpt-5.4-mini",
+      model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
       input: [
         {
           role: "user",
@@ -239,7 +247,16 @@ function collectOutputText(result) {
 function applyKnownCosts(items, costs) {
   return items.map((item) => {
     const match = costs.find((cost) => cost.name === item.name);
-    return match ? { ...item, category: match.category, unit: match.unit, cost: match.cost } : item;
+    return match
+      ? {
+          ...item,
+          category: match.category,
+          unit: item.unit || match.unit,
+          cost: match.cost,
+          conversionQty: match.conversionQty,
+          costUnit: match.costUnit
+        }
+      : item;
   });
 }
 
@@ -250,6 +267,8 @@ function normalizeItem(item) {
     name: String(item.name || ""),
     qty: Number(item.qty) || 0,
     unit: String(item.unit || "個"),
+    conversionQty: Number(item.conversionQty) || 1,
+    costUnit: String(item.costUnit || item.unit || "個"),
     cost: Number(item.cost) || 0
   };
 }
@@ -260,6 +279,8 @@ function normalizeCost(cost) {
     category: categories.includes(cost.category) ? cost.category : categories[0],
     name: String(cost.name || ""),
     unit: String(cost.unit || "個"),
+    conversionQty: Number(cost.conversionQty) || 1,
+    costUnit: String(cost.costUnit || cost.unit || "個"),
     cost: Number(cost.cost) || 0
   };
 }
@@ -274,7 +295,23 @@ function ensureDb() {
       currentPhoto: "",
       aiMode: "demo"
     });
+  } else {
+    const db = readDb();
+    migrateDb(db);
+    writeDb(db);
   }
+}
+
+function migrateDb(db) {
+  db.items = (db.items || []).map(normalizeItem);
+  db.costs = (db.costs || []).map(normalizeCost);
+  defaultCosts.forEach((defaultCost) => {
+    const exists = db.costs.some((cost) => cost.name === defaultCost.name);
+    if (!exists) db.costs.push(normalizeCost(defaultCost));
+  });
+  db.history = db.history || [];
+  db.currentPhoto = db.currentPhoto || "";
+  db.aiMode = db.aiMode || "demo";
 }
 
 function readDb() {
@@ -358,8 +395,17 @@ function parseCookies(cookieHeader) {
 
 function sendExcel(response, db) {
   const rows = [
-    ["分類", "品項", "數量", "單位", "單位成本", "小計"],
-    ...db.items.map((item) => [item.category, item.name, item.qty, item.unit, item.cost, item.qty * item.cost])
+    ["分類", "品項", "數量", "盤點單位", "換算數量", "成本單位", "單位成本", "小計"],
+    ...db.items.map((item) => [
+      item.category,
+      item.name,
+      item.qty,
+      item.unit,
+      item.conversionQty,
+      item.costUnit,
+      item.cost,
+      itemSubtotal(item)
+    ])
   ];
   const html = `
     <html>
@@ -379,7 +425,11 @@ function sendExcel(response, db) {
 }
 
 function inventoryTotal(items) {
-  return items.reduce((sum, item) => sum + item.qty * item.cost, 0);
+  return items.reduce((sum, item) => sum + itemSubtotal(item), 0);
+}
+
+function itemSubtotal(item) {
+  return (Number(item.qty) || 0) * (Number(item.conversionQty) || 1) * (Number(item.cost) || 0);
 }
 
 function currentMonth() {

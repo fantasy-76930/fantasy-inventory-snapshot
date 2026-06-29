@@ -1,4 +1,4 @@
-const cacheName = "fantasy-inventory-v2";
+const cacheName = "fantasy-inventory-v3";
 const assets = [
   "./",
   "./index.html",

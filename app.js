@@ -80,8 +80,10 @@ function renderInventory() {
     row.querySelector(".name-input").value = item.name || "";
     row.querySelector(".qty-input").value = item.qty ?? 0;
     row.querySelector(".unit-input").value = item.unit || "";
+    row.querySelector(".conversion-input").value = item.conversionQty ?? 1;
+    row.querySelector(".cost-unit-input").value = item.costUnit || item.unit || "";
     row.querySelector(".cost-input").value = item.cost ?? 0;
-    row.querySelector(".subtotal-cell").textContent = money((item.qty || 0) * (item.cost || 0));
+    row.querySelector(".subtotal-cell").textContent = money(itemSubtotal(item));
 
     row.querySelectorAll("input, select").forEach((input) => {
       input.addEventListener("change", () => updateInventoryItem(item.id, row));
@@ -102,6 +104,8 @@ async function updateInventoryItem(id, row) {
     name: row.querySelector(".name-input").value.trim(),
     qty: Number(row.querySelector(".qty-input").value) || 0,
     unit: row.querySelector(".unit-input").value.trim(),
+    conversionQty: Number(row.querySelector(".conversion-input").value) || 1,
+    costUnit: row.querySelector(".cost-unit-input").value.trim(),
     cost: Number(row.querySelector(".cost-input").value) || 0
   };
   state = await api(`/api/items/${id}`, {
@@ -121,7 +125,9 @@ async function fillCostFromTable(id, row) {
     body: JSON.stringify({
       name,
       category: match.category,
-      unit: match.unit,
+      unit: row.querySelector(".unit-input").value.trim() || match.unit,
+      conversionQty: match.conversionQty,
+      costUnit: match.costUnit,
       cost: match.cost,
       qty: Number(row.querySelector(".qty-input").value) || 0
     })
@@ -142,6 +148,8 @@ function renderCosts() {
     row.querySelector(".cost-category-input").innerHTML = makeCategoryOptions(cost.category);
     row.querySelector(".cost-name-input").value = cost.name || "";
     row.querySelector(".cost-unit-input").value = cost.unit || "";
+    row.querySelector(".cost-conversion-input").value = cost.conversionQty ?? 1;
+    row.querySelector(".cost-base-unit-input").value = cost.costUnit || cost.unit || "";
     row.querySelector(".cost-value-input").value = cost.cost ?? 0;
 
     row.querySelectorAll("input, select").forEach((input) => {
@@ -161,6 +169,8 @@ async function updateCost(id, row) {
       category: row.querySelector(".cost-category-input").value,
       name: row.querySelector(".cost-name-input").value.trim(),
       unit: row.querySelector(".cost-unit-input").value.trim(),
+      conversionQty: Number(row.querySelector(".cost-conversion-input").value) || 1,
+      costUnit: row.querySelector(".cost-base-unit-input").value.trim(),
       cost: Number(row.querySelector(".cost-value-input").value) || 0
     })
   });
@@ -173,9 +183,13 @@ async function deleteCost(id) {
 }
 
 function updateTotals() {
-  const total = state.items.reduce((sum, item) => sum + (Number(item.qty) || 0) * (Number(item.cost) || 0), 0);
+  const total = state.items.reduce((sum, item) => sum + itemSubtotal(item), 0);
   grandTotal.textContent = money(total);
   itemCount.textContent = String(state.items.length);
+}
+
+function itemSubtotal(item) {
+  return (Number(item.qty) || 0) * (Number(item.conversionQty) || 1) * (Number(item.cost) || 0);
 }
 
 function renderHistory() {
@@ -220,6 +234,8 @@ async function addInventoryItem(item = {}) {
       name: item.name || "",
       qty: item.qty ?? 1,
       unit: item.unit || "個",
+      conversionQty: item.conversionQty ?? 1,
+      costUnit: item.costUnit || item.unit || "個",
       cost: item.cost ?? 0
     })
   });
@@ -232,7 +248,9 @@ async function addCostItem() {
     body: JSON.stringify({
       category: categories[0],
       name: "",
-      unit: "個",
+      unit: "箱",
+      conversionQty: 1,
+      costUnit: "個",
       cost: 0
     })
   });
@@ -268,7 +286,7 @@ function exportExcel() {
 }
 
 function exportPdf() {
-  const total = state.items.reduce((sum, item) => sum + item.qty * item.cost, 0);
+  const total = state.items.reduce((sum, item) => sum + itemSubtotal(item), 0);
   const rows = state.items
     .map(
       (item) => `
@@ -277,8 +295,10 @@ function exportPdf() {
         <td>${item.name}</td>
         <td>${item.qty}</td>
         <td>${item.unit}</td>
+        <td>${item.conversionQty}</td>
+        <td>${item.costUnit}</td>
         <td>${money(item.cost)}</td>
-        <td>${money(item.qty * item.cost)}</td>
+        <td>${money(itemSubtotal(item))}</td>
       </tr>`
     )
     .join("");
@@ -303,7 +323,7 @@ function exportPdf() {
         <div>盤點月份：${monthLabel()}</div>
         <div class="total">總庫存金額：${money(total)}</div>
         <table>
-          <thead><tr><th>分類</th><th>品項</th><th>數量</th><th>單位</th><th>單位成本</th><th>小計</th></tr></thead>
+          <thead><tr><th>分類</th><th>品項</th><th>數量</th><th>盤點單位</th><th>換算</th><th>成本單位</th><th>單位成本</th><th>小計</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
         <script>window.onload = () => window.print();<\/script>
