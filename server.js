@@ -443,7 +443,7 @@ function mergeCostSeeds(db, costs) {
 function loadSeedCosts() {
   if (!fs.existsSync(seedCostsPath)) return [];
   try {
-    const parsed = JSON.parse(fs.readFileSync(seedCostsPath, "utf8"));
+    const parsed = readJsonFile(seedCostsPath);
     return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
@@ -453,15 +453,19 @@ function loadSeedCosts() {
 function loadShopeeCatalog() {
   if (!fs.existsSync(shopeeCatalogPath)) return [];
   try {
-    const parsed = JSON.parse(fs.readFileSync(shopeeCatalogPath, "utf8"));
+    const parsed = readJsonFile(shopeeCatalogPath);
     return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
 }
 
+function readJsonFile(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, ""));
+}
+
 function readDb() {
-  return JSON.parse(fs.readFileSync(dbPath, "utf8"));
+  return readJsonFile(dbPath);
 }
 
 function writeDb(db) {

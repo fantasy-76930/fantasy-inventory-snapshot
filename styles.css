@@ -578,6 +578,20 @@ th {
   font-weight: 700;
 }
 
+.cost-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid rgba(11, 125, 75, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #075c38;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 /* Premium app theme */
 :root {
   --ink: #071615;

@@ -11,6 +11,7 @@ const inventoryBody = document.querySelector("#inventoryBody");
 const costBody = document.querySelector("#costBody");
 const grandTotal = document.querySelector("#grandTotal");
 const itemCount = document.querySelector("#itemCount");
+const costCount = document.querySelector("#costCount");
 const historyGrid = document.querySelector("#historyGrid");
 const photoInput = document.querySelector("#photoInput");
 const photoPreview = document.querySelector("#photoPreview");
@@ -167,6 +168,7 @@ async function deleteInventoryItem(id) {
 
 function renderCosts() {
   costBody.innerHTML = "";
+  if (costCount) costCount.textContent = `\u5171 ${state.costs.length} \u7b46\u54c1\u9805`;
 
   state.costs.forEach((cost) => {
     const row = document.querySelector("#costRowTemplate").content.firstElementChild.cloneNode(true);
