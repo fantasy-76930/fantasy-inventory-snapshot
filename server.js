@@ -5,6 +5,7 @@ const path = require("path");
 const rootDir = __dirname;
 const dataDir = process.env.DATA_DIR || path.join(rootDir, "data");
 const dbPath = path.join(dataDir, "db.json");
+const seedCostsPath = path.join(rootDir, "seed-costs.json");
 const port = Number(process.env.PORT || 3000);
 const adminPassword = process.env.ADMIN_PASSWORD || "admin1234";
 const sessionSecret = process.env.SESSION_SECRET || "local-dev-secret";
@@ -305,13 +306,29 @@ function ensureDb() {
 function migrateDb(db) {
   db.items = (db.items || []).map(normalizeItem);
   db.costs = (db.costs || []).map(normalizeCost);
-  defaultCosts.forEach((defaultCost) => {
-    const exists = db.costs.some((cost) => cost.name === defaultCost.name);
-    if (!exists) db.costs.push(normalizeCost(defaultCost));
-  });
+  mergeCostSeeds(db, defaultCosts);
+  mergeCostSeeds(db, loadSeedCosts());
   db.history = db.history || [];
   db.currentPhoto = db.currentPhoto || "";
   db.aiMode = db.aiMode || "demo";
+}
+
+function mergeCostSeeds(db, costs) {
+  costs.forEach((seedCost) => {
+    const normalized = normalizeCost(seedCost);
+    const exists = db.costs.some((cost) => cost.name === normalized.name && cost.costUnit === normalized.costUnit);
+    if (!exists) db.costs.push(normalized);
+  });
+}
+
+function loadSeedCosts() {
+  if (!fs.existsSync(seedCostsPath)) return [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(seedCostsPath, "utf8"));
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
 }
 
 function readDb() {

@@ -71,3 +71,7 @@ DATA_DIR=/data
 專案已附上 `Dockerfile` 和 `render.yaml`，可部署到 Render、Railway、Fly.io 或任何支援 Node.js/Docker 的平台。
 
 若使用檔案資料庫，雲端需要永久磁碟，`render.yaml` 已設定 `/data` 作為資料保存位置。
+
+## 進銷存資料
+
+`seed-costs.json` 是從 Access 進銷存商品資料匯出的成本種子資料。系統啟動時會自動合併缺少的品項到成本表。
