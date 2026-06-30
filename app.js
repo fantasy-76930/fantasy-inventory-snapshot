@@ -6,6 +6,7 @@ let state = {
   history: [],
   currentPhoto: ""
 };
+let activeCostId = "";
 
 const inventoryBody = document.querySelector("#inventoryBody");
 const costBody = document.querySelector("#costBody");
@@ -175,9 +176,19 @@ async function deleteInventoryItem(id) {
 
 function renderCosts() {
   costBody.innerHTML = "";
-  if (costCount) costCount.textContent = `\u5171 ${state.costs.length} \u7b46\u54c1\u9805`;
+  if (costCount) costCount.textContent = `共 ${state.costs.length} 筆成本資料`;
 
-  state.costs.forEach((cost) => {
+  const activeCost = state.costs.find((cost) => cost.id === activeCostId);
+  if (!activeCost) {
+    activeCostId = "";
+    const emptyRow = document.createElement("tr");
+    emptyRow.className = "cost-helper-row";
+    emptyRow.innerHTML = `<td colspan="7" class="empty-state">成本資料已在後台載入。按「新增成本」時，這裡只會顯示正在新增的那一筆。</td>`;
+    costBody.appendChild(emptyRow);
+    return;
+  }
+
+  [activeCost].forEach((cost) => {
     const row = document.querySelector("#costRowTemplate").content.firstElementChild.cloneNode(true);
     labelCells(row, ["分類", "品項", "盤點單位", "換算", "成本單位", "單位成本", ""]);
     row.querySelector(".cost-category-input").innerHTML = makeCategoryOptions(cost.category);
@@ -220,6 +231,7 @@ async function updateCost(id, row) {
 
 async function deleteCost(id) {
   state = await api(`/api/costs/${id}`, { method: "DELETE" });
+  if (activeCostId === id) activeCostId = "";
   renderAll();
 }
 
@@ -306,6 +318,7 @@ async function addCostItem() {
       cost: 0
     })
   });
+  activeCostId = state.costs[state.costs.length - 1]?.id || "";
   renderAll();
 }
 
