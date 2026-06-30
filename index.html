@@ -11,11 +11,60 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icons/icon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=16" />
+    <link rel="stylesheet" href="styles.css?v=17" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
+        <div class="cyber-scene" aria-hidden="true">
+          <div class="forest-layer forest-back"></div>
+          <div class="forest-layer forest-mid"></div>
+          <div class="forest-layer forest-front"></div>
+          <div class="butterfly-swarm">
+            <svg class="butterfly butterfly-a" viewBox="0 0 120 120" role="presentation">
+              <defs>
+                <linearGradient id="wingA" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#d8ff87" />
+                  <stop offset="50%" stop-color="#7fffd4" />
+                  <stop offset="100%" stop-color="#59f29b" />
+                </linearGradient>
+              </defs>
+              <path d="M58 58C30 55 15 30 20 8C42 8 57 25 58 58Z" fill="url(#wingA)" opacity="0.9" />
+              <path d="M62 58C90 55 105 30 100 8C78 8 63 25 62 58Z" fill="url(#wingA)" opacity="0.92" />
+              <path d="M58 62C34 66 22 84 28 108C46 104 57 89 58 62Z" fill="url(#wingA)" opacity="0.78" />
+              <path d="M62 62C86 66 98 84 92 108C74 104 63 89 62 62Z" fill="url(#wingA)" opacity="0.8" />
+              <rect x="57" y="34" width="6" height="38" rx="3" fill="#123222" />
+            </svg>
+            <svg class="butterfly butterfly-b" viewBox="0 0 120 120" role="presentation">
+              <defs>
+                <linearGradient id="wingB" x1="0%" y1="20%" x2="100%" y2="80%">
+                  <stop offset="0%" stop-color="#f5ffb0" />
+                  <stop offset="45%" stop-color="#96ffcf" />
+                  <stop offset="100%" stop-color="#67d9ff" />
+                </linearGradient>
+              </defs>
+              <path d="M58 56C36 49 26 28 36 10C54 14 61 32 58 56Z" fill="url(#wingB)" opacity="0.88" />
+              <path d="M62 56C84 49 94 28 84 10C66 14 59 32 62 56Z" fill="url(#wingB)" opacity="0.9" />
+              <path d="M58 64C40 72 34 90 42 108C54 100 59 82 58 64Z" fill="url(#wingB)" opacity="0.7" />
+              <path d="M62 64C80 72 86 90 78 108C66 100 61 82 62 64Z" fill="url(#wingB)" opacity="0.72" />
+              <rect x="57" y="34" width="6" height="40" rx="3" fill="#102c1f" />
+            </svg>
+            <svg class="butterfly butterfly-c" viewBox="0 0 120 120" role="presentation">
+              <defs>
+                <linearGradient id="wingC" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#d3ff8f" />
+                  <stop offset="55%" stop-color="#5fffcf" />
+                  <stop offset="100%" stop-color="#c8ffef" />
+                </linearGradient>
+              </defs>
+              <path d="M58 58C32 52 19 34 24 12C42 14 55 30 58 58Z" fill="url(#wingC)" opacity="0.9" />
+              <path d="M62 58C88 52 101 34 96 12C78 14 65 30 62 58Z" fill="url(#wingC)" opacity="0.9" />
+              <path d="M58 62C37 68 28 86 34 106C49 100 58 84 58 62Z" fill="url(#wingC)" opacity="0.72" />
+              <path d="M62 62C83 68 92 86 86 106C71 100 62 84 62 62Z" fill="url(#wingC)" opacity="0.72" />
+              <rect x="57" y="34" width="6" height="40" rx="3" fill="#173527" />
+            </svg>
+          </div>
+        </div>
         <div class="hero-copy">
           <p class="eyebrow">PWA 盤點工具</p>
           <h1>奇幻庫存快拍系統</h1>
@@ -183,6 +232,6 @@
       </tr>
     </template>
 
-    <script src="app.js?v=16"></script>
+    <script src="app.js?v=17"></script>
   </body>
 </html>
