@@ -3905,3 +3905,41 @@ section > * {
     border-radius: 18px;
   }
 }
+
+/* v32 cleaner panel stacking */
+@media (min-width: 981px) {
+  .workspace {
+    margin-top: -42px !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .topbar {
+    padding-bottom: 44px !important;
+    border-radius: 0 0 30px 30px !important;
+  }
+
+  .topbar::after {
+    bottom: -96px !important;
+    opacity: 0.54;
+  }
+
+  .workspace {
+    margin-top: 14px !important;
+    gap: 18px !important;
+  }
+
+  section {
+    overflow: hidden;
+  }
+
+  section::before {
+    inset: 14px !important;
+    opacity: 0.46;
+  }
+
+  section::after {
+    inset: auto 28px 13px !important;
+    opacity: 0.42;
+  }
+}
