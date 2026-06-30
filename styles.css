@@ -4272,3 +4272,238 @@ button > span,
 .hero-pills button > span {
   min-width: 0;
 }
+
+/* v36 clean forged capsules: remove noisy image-button layers */
+button:not(.icon-button),
+.secondary-button,
+.ghost-button,
+.login-box button,
+.hero-pills button {
+  --capsule-h: 52px;
+  position: relative !important;
+  isolation: isolate !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  height: var(--capsule-h) !important;
+  min-height: var(--capsule-h) !important;
+  max-height: var(--capsule-h) !important;
+  min-width: 156px !important;
+  padding: 0 24px 0 62px !important;
+  border: 1px solid rgba(245, 215, 136, 0.86) !important;
+  border-radius: 999px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06) 30%, transparent 58%),
+    radial-gradient(circle at 82% 18%, rgba(255, 229, 139, 0.28), transparent 28%),
+    linear-gradient(135deg, rgba(9, 47, 34, 0.98), rgba(19, 111, 77, 0.95) 50%, rgba(120, 92, 32, 0.92) 100%) !important;
+  color: #fbfff5 !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  text-shadow:
+    0 1px 1px rgba(0, 12, 8, 0.46),
+    0 0 12px rgba(211, 255, 226, 0.18) !important;
+  box-shadow:
+    0 12px 22px rgba(3, 29, 19, 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.62) inset,
+    0 -14px 24px rgba(0, 13, 8, 0.22) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.36) !important;
+  filter: none !important;
+  transform: none !important;
+  animation: none !important;
+  overflow: hidden !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition:
+    filter 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease !important;
+}
+
+.hero-pills button {
+  --capsule-h: 54px;
+  min-width: 146px !important;
+}
+
+#logoutBtn,
+#newSnapshotBtn,
+#aiDetectBtn,
+#addBlankBtn,
+#resetCurrentBtn,
+#addCostBtn,
+#exportExcelBtn,
+#exportPdfBtn,
+#quickCaptureBtn,
+#quickAiBtn,
+#quickCostBtn,
+#quickHistoryBtn {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06) 30%, transparent 58%),
+    radial-gradient(circle at 82% 18%, rgba(255, 229, 139, 0.28), transparent 28%),
+    linear-gradient(135deg, rgba(9, 47, 34, 0.98), rgba(19, 111, 77, 0.95) 50%, rgba(120, 92, 32, 0.92) 100%) !important;
+}
+
+#aiDetectBtn,
+#quickAiBtn {
+  border-color: rgba(154, 241, 235, 0.86) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.06) 30%, transparent 58%),
+    radial-gradient(circle at 82% 18%, rgba(154, 241, 235, 0.34), transparent 28%),
+    linear-gradient(135deg, rgba(7, 42, 43, 0.98), rgba(20, 130, 126, 0.94) 52%, rgba(76, 105, 54, 0.92) 100%) !important;
+}
+
+#resetCurrentBtn {
+  border-color: rgba(244, 195, 133, 0.82) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.05) 32%, transparent 60%),
+    radial-gradient(circle at 82% 18%, rgba(244, 195, 133, 0.28), transparent 28%),
+    linear-gradient(135deg, rgba(54, 31, 18, 0.98), rgba(121, 70, 33, 0.94) 52%, rgba(76, 95, 40, 0.9) 100%) !important;
+}
+
+#logoutBtn {
+  min-width: 100% !important;
+}
+
+#logoutBtn::before,
+#newSnapshotBtn::before,
+#aiDetectBtn::before,
+#addBlankBtn::before,
+#resetCurrentBtn::before,
+#addCostBtn::before,
+#exportExcelBtn::before,
+#exportPdfBtn::before,
+#quickCaptureBtn::before,
+#quickAiBtn::before,
+#quickCostBtn::before,
+#quickHistoryBtn::before,
+button:not(.icon-button)::before,
+.secondary-button::before,
+.ghost-button::before,
+.login-box button::before,
+.hero-pills button::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 8px !important;
+  top: 7px !important;
+  right: auto !important;
+  bottom: 7px !important;
+  width: 38px !important;
+  height: auto !important;
+  z-index: -1 !important;
+  border: 1px solid rgba(255, 247, 214, 0.72) !important;
+  border-radius: 999px !important;
+  background:
+    radial-gradient(circle at 38% 28%, rgba(255, 255, 255, 0.92) 0 3px, rgba(255, 238, 162, 0.56) 4px 8px, transparent 9px),
+    linear-gradient(145deg, rgba(255, 244, 187, 0.88), rgba(177, 126, 35, 0.62) 48%, rgba(22, 92, 62, 0.72)) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.24) inset,
+    0 -8px 14px rgba(2, 16, 10, 0.18) inset,
+    0 6px 12px rgba(2, 18, 12, 0.18) !important;
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  pointer-events: none !important;
+}
+
+#logoutBtn::after,
+#newSnapshotBtn::after,
+#aiDetectBtn::after,
+#addBlankBtn::after,
+#resetCurrentBtn::after,
+#addCostBtn::after,
+#exportExcelBtn::after,
+#exportPdfBtn::after,
+#quickCaptureBtn::after,
+#quickAiBtn::after,
+#quickCostBtn::after,
+#quickHistoryBtn::after,
+button:not(.icon-button)::after,
+.secondary-button::after,
+.ghost-button::after,
+.login-box button::after,
+.hero-pills button::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px 3px auto 3px !important;
+  height: 48% !important;
+  z-index: -1 !important;
+  border-radius: 999px 999px 24px 24px !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08), transparent) !important;
+  opacity: 0.72 !important;
+  transform: none !important;
+  animation: none !important;
+  pointer-events: none !important;
+}
+
+button:not(.icon-button):hover,
+.secondary-button:hover,
+.ghost-button:hover,
+.login-box button:hover,
+.hero-pills button:hover {
+  filter: brightness(1.05) saturate(1.04) !important;
+  transform: none !important;
+  box-shadow:
+    0 14px 26px rgba(3, 29, 19, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.68) inset,
+    0 -14px 24px rgba(0, 13, 8, 0.2) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.42) !important;
+}
+
+button:not(.icon-button):active,
+.secondary-button:active,
+.ghost-button:active,
+.login-box button:active,
+.hero-pills button:active {
+  filter: brightness(0.98) saturate(1.02) !important;
+  transform: none !important;
+}
+
+.actions-row.tight {
+  align-items: stretch !important;
+}
+
+.actions-row.tight #exportExcelBtn,
+.actions-row.tight #exportPdfBtn {
+  width: min(280px, 100%) !important;
+}
+
+.history-panel .actions-row.tight {
+  width: 100% !important;
+}
+
+@media (max-width: 640px) {
+  button:not(.icon-button),
+  .secondary-button,
+  .ghost-button,
+  .login-box button,
+  .hero-pills button {
+    min-width: 0 !important;
+    width: 100% !important;
+    padding-left: 58px !important;
+    padding-right: 18px !important;
+    font-size: 16px !important;
+  }
+
+  .hero-pills {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .hero-pills button {
+    width: 100% !important;
+  }
+
+  .history-panel .actions-row.tight {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .history-panel .actions-row.tight #exportExcelBtn,
+  .history-panel .actions-row.tight #exportPdfBtn {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
