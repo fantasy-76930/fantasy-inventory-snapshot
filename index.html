@@ -3,28 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f2627" />
+    <meta name="theme-color" content="#4f8255" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="庫存快拍" />
+    <meta name="apple-mobile-web-app-title" content="奇幻庫存快拍" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>奇幻庫存快拍系統</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icons/icon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=15" />
+    <link rel="stylesheet" href="styles.css?v=16" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <div>
+        <div class="hero-copy">
           <p class="eyebrow">PWA 盤點工具</p>
           <h1>奇幻庫存快拍系統</h1>
+          <p class="hero-note">拍照盤點、成本換算、每月紀錄，整理成一個真正順手的手機工具。</p>
+          <div class="hero-pills">
+            <span>拍照上傳</span>
+            <span>AI 辨識</span>
+            <span>成本換算</span>
+            <span>歷史變化</span>
+          </div>
         </div>
-        <div class="total-box">
-          <span>總庫存金額</span>
-          <strong id="grandTotal">$0</strong>
+        <div class="hero-side">
+          <div class="total-box">
+            <span>總庫存金額</span>
+            <strong id="grandTotal">$0</strong>
+          </div>
+          <button class="secondary-button logout-button" id="logoutBtn" type="button">登出</button>
         </div>
-        <button class="secondary-button logout-button" id="logoutBtn" type="button">登出</button>
       </header>
 
       <main class="workspace">
@@ -81,8 +90,8 @@
                   <th>計算</th>
                   <th>數量</th>
                   <th>盤點單位</th>
-                  <th>高度cm</th>
-                  <th>長度cm</th>
+                  <th>寬度 cm</th>
+                  <th>長度 cm</th>
                   <th>換算</th>
                   <th>成本單位</th>
                   <th>單位成本</th>
@@ -174,6 +183,6 @@
       </tr>
     </template>
 
-    <script src="app.js?v=15"></script>
+    <script src="app.js?v=16"></script>
   </body>
 </html>
