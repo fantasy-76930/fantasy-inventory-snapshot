@@ -1852,8 +1852,10 @@ body::after {
   min-height: 430px;
   padding: 42px 38px 150px;
   background:
+    linear-gradient(90deg, rgba(2, 14, 10, 0.12) 0%, rgba(2, 14, 10, 0.04) 46%, rgba(2, 14, 10, 0.18) 100%),
     radial-gradient(circle at 18% 18%, rgba(141, 255, 102, 0.24), transparent 22%),
     radial-gradient(circle at 80% 16%, rgba(108, 224, 255, 0.22), transparent 18%),
+    url("assets/forest-poster-v1.png") center 34% / cover no-repeat,
     linear-gradient(135deg, rgba(4, 17, 12, 0.98), rgba(11, 48, 31, 0.95) 36%, rgba(23, 76, 49, 0.9) 68%, rgba(35, 104, 61, 0.84));
   border: 1px solid rgba(112, 255, 177, 0.16);
   box-shadow: 0 34px 90px rgba(8, 34, 22, 0.34);
@@ -1870,7 +1872,7 @@ body::after {
   bottom: -110px;
   height: 230px;
   background:
-    linear-gradient(180deg, rgba(246, 251, 247, 0.94), rgba(246, 251, 247, 1));
+    radial-gradient(ellipse at 50% 100%, rgba(246, 251, 247, 0.72) 0 54%, rgba(246, 251, 247, 0.28) 66%, transparent 74%);
 }
 
 .cyber-scene {
