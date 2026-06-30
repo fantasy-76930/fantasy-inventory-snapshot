@@ -255,7 +255,7 @@ function measuredQty(item) {
 
 function renderHistory() {
   if (!state.history.length) {
-    historyGrid.innerHTML = `<div class="empty-state">尚無歷史紀錄。按「新增盤點紀錄」即可保存本月盤點。</div>`;
+    historyGrid.innerHTML = `<div class="empty-state">尚無歷史紀錄。按「新增此次盤點紀錄」即可保存本月盤點。</div>`;
     return;
   }
 
