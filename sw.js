@@ -1,4 +1,4 @@
-const cacheName = "fantasy-inventory-v32";
+const cacheName = "fantasy-inventory-v33";
 const assets = [
   "./",
   "./index.html",
@@ -60,7 +60,9 @@ const assets = [
   "./app.js?v=31",
   "./app.js?v=32",
   "./manifest.webmanifest",
+  "./manifest.webmanifest?v=33",
   "./apple-touch-icon.png",
+  "./apple-touch-icon.png?v=33",
   "./assets/forest-poster-v1.png",
   "./assets/forest-premium-v2.png",
   "./assets/poster-butterfly-a.png",
@@ -85,10 +87,15 @@ const assets = [
   "./assets/ui/pill-3.png",
   "./assets/ui/pill-4.png",
   "./icons/apple-touch-icon.png",
+  "./icons/apple-touch-icon.png?v=33",
   "./icons/icon-192.png",
+  "./icons/icon-192.png?v=33",
   "./icons/icon-512.png",
+  "./icons/icon-512.png?v=33",
   "./icons/icon-192.svg",
-  "./icons/icon-512.svg"
+  "./icons/icon-192.svg?v=33",
+  "./icons/icon-512.svg",
+  "./icons/icon-512.svg?v=33"
 ];
 
 self.addEventListener("install", (event) => {
