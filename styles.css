@@ -2149,17 +2149,29 @@ h1 {
 .butterfly-swarm {
   position: absolute;
   inset: 0;
+  z-index: 3;
 }
 
 .butterfly {
   position: absolute;
   width: 84px;
   height: 84px;
-  opacity: 0.88;
+  opacity: 0.98;
   filter:
-    drop-shadow(0 0 12px rgba(137, 255, 201, 0.28))
-    drop-shadow(0 0 20px rgba(100, 235, 255, 0.16));
+    drop-shadow(0 0 12px rgba(137, 255, 201, 0.42))
+    drop-shadow(0 0 24px rgba(100, 235, 255, 0.28))
+    drop-shadow(0 0 46px rgba(151, 255, 182, 0.22));
   transform-origin: center;
+}
+
+.butterfly::after {
+  content: "";
+  position: absolute;
+  inset: 26% 26%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(185, 255, 198, 0.32), rgba(185, 255, 198, 0));
+  filter: blur(10px);
+  z-index: -1;
 }
 
 .butterfly-a {
@@ -2353,25 +2365,29 @@ h2 {
     bottom: 44px;
   }
 
+  .butterfly-swarm {
+    inset: 8px 0 0;
+  }
+
   .butterfly-a {
-    top: 210px;
-    right: 28px;
-    width: 64px;
-    height: 64px;
+    top: 108px;
+    right: 32px;
+    width: 92px;
+    height: 92px;
   }
 
   .butterfly-b {
-    top: 124px;
-    right: 110px;
-    width: 52px;
-    height: 52px;
+    top: 212px;
+    right: 26px;
+    width: 74px;
+    height: 74px;
   }
 
   .butterfly-c {
-    top: 172px;
-    right: 190px;
-    width: 44px;
-    height: 44px;
+    top: 152px;
+    right: 118px;
+    width: 64px;
+    height: 64px;
   }
 
   .hero-pills {
