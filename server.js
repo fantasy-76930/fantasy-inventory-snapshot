@@ -12,36 +12,32 @@ const adminPassword = process.env.ADMIN_PASSWORD || "admin1234";
 const sessionSecret = process.env.SESSION_SECRET || "local-dev-secret";
 const sessionCookieName = "fantasy_inventory_session";
 
-const categories = ["黑板膜", "白板膜", "框料", "五金", "耗材", "設備"];
+const categories = ["膜材", "筆/粉筆/墨水", "板擦/保養", "設備/配件", "其他"];
 const defaultCosts = [
-  { id: makeId(), category: "黑板膜", name: "黑板膜卷材", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 2800 },
-  { id: makeId(), category: "白板膜", name: "白板膜卷材", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 3200 },
-  { id: makeId(), category: "框料", name: "鋁框料", unit: "支", conversionQty: 1, costUnit: "支", cost: 180 },
-  { id: makeId(), category: "五金", name: "角碼", unit: "包", conversionQty: 1, costUnit: "包", cost: 95 },
-  { id: makeId(), category: "耗材", name: "雙面膠", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 120 },
-  { id: makeId(), category: "耗材", name: "粉筆", unit: "箱", conversionQty: 120, costUnit: "盒", cost: 60 },
-  { id: makeId(), category: "耗材", name: "Sangbo Chalk 白色粉筆", unit: "箱", conversionQty: 120, costUnit: "盒", cost: 60 },
-  { id: makeId(), category: "耗材", name: "ZITEC WellBeing Marker 補充墨水", unit: "盒", conversionQty: 6, costUnit: "瓶", cost: 75 },
-  { id: makeId(), category: "耗材", name: "ZITEC WellBeing Marker 補充墨水", unit: "箱", conversionQty: 96, costUnit: "瓶", cost: 75 },
-  { id: makeId(), category: "耗材", name: "APIO 白板筆", unit: "盒", conversionQty: 10, costUnit: "支", cost: 58 },
-  { id: makeId(), category: "耗材", name: "Board Cleaner 保養液噴瓶", unit: "箱", conversionQty: 25, costUnit: "瓶", cost: 180 },
-  { id: makeId(), category: "設備", name: "裁切機", unit: "台", conversionQty: 1, costUnit: "台", cost: 16800 }
+  { id: makeId(), category: "膜材", name: "黑板膜卷材", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 2800 },
+  { id: makeId(), category: "膜材", name: "白板膜卷材", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 3200 },
+  { id: makeId(), category: "其他", name: "雙面膠", unit: "卷", conversionQty: 1, costUnit: "卷", cost: 120 },
+  { id: makeId(), category: "筆/粉筆/墨水", name: "粉筆", unit: "箱", conversionQty: 120, costUnit: "盒", cost: 60 },
+  { id: makeId(), category: "筆/粉筆/墨水", name: "Sangbo Chalk 白色粉筆", unit: "箱", conversionQty: 120, costUnit: "盒", cost: 60 },
+  { id: makeId(), category: "筆/粉筆/墨水", name: "ZITEC WellBeing Marker 補充墨水", unit: "盒", conversionQty: 6, costUnit: "瓶", cost: 75 },
+  { id: makeId(), category: "筆/粉筆/墨水", name: "ZITEC WellBeing Marker 補充墨水", unit: "箱", conversionQty: 96, costUnit: "瓶", cost: 75 },
+  { id: makeId(), category: "筆/粉筆/墨水", name: "APIO 白板筆", unit: "盒", conversionQty: 10, costUnit: "支", cost: 58 },
+  { id: makeId(), category: "板擦/保養", name: "Board Cleaner 保養液噴瓶", unit: "箱", conversionQty: 25, costUnit: "瓶", cost: 180 },
+  { id: makeId(), category: "設備/配件", name: "裁切機", unit: "台", conversionQty: 1, costUnit: "台", cost: 16800 }
 ];
 const demoDetectedItems = [
-  { category: "黑板膜", name: "黑板膜卷材", qty: 3, unit: "卷", cost: 2800 },
-  { category: "白板膜", name: "白板膜卷材", qty: 2, unit: "卷", cost: 3200 },
-  { category: "框料", name: "鋁框料", qty: 18, unit: "支", cost: 180 },
-  { category: "五金", name: "角碼", qty: 6, unit: "包", cost: 95 },
-  { category: "黑板膜", name: "背膠式水擦黑板膜(寬122cm)/才", calcMode: "area", widthCm: 120, lengthCm: 5000, unit: "才", costUnit: "才", cost: 50 },
-  { category: "耗材", name: "粉筆", qty: 1, unit: "箱", cost: 60, conversionQty: 120, costUnit: "盒" },
-  { category: "耗材", name: "ZITEC WellBeing Marker 補充墨水", qty: 1, unit: "箱", conversionQty: 96, costUnit: "瓶", cost: 75 },
-  { category: "耗材", name: "Board Cleaner 保養液噴瓶", qty: 1, unit: "箱", conversionQty: 25, costUnit: "瓶", cost: 180 }
+  { category: "膜材", name: "黑板膜卷材", qty: 3, unit: "卷", cost: 2800 },
+  { category: "膜材", name: "白板膜卷材", qty: 2, unit: "卷", cost: 3200 },
+  { category: "膜材", name: "背膠式水擦黑板膜(寬122cm)/才", calcMode: "area", widthCm: 120, lengthCm: 5000, unit: "才", costUnit: "才", cost: 50 },
+  { category: "筆/粉筆/墨水", name: "粉筆", qty: 1, unit: "箱", cost: 60, conversionQty: 120, costUnit: "盒" },
+  { category: "筆/粉筆/墨水", name: "ZITEC WellBeing Marker 補充墨水", qty: 1, unit: "箱", conversionQty: 96, costUnit: "瓶", cost: 75 },
+  { category: "板擦/保養", name: "Board Cleaner 保養液噴瓶", qty: 1, unit: "箱", conversionQty: 25, costUnit: "瓶", cost: 180 }
 ];
 const packagingRules = [
   {
     keywords: ["chalk", "sangbo chalk", "粉筆", "水擦粉筆", "環保水擦粉筆"],
     name: "Sangbo Chalk 白色粉筆",
-    category: "耗材",
+    category: "筆/粉筆/墨水",
     rules: [
       { unit: "箱", conversionQty: 120, costUnit: "盒" },
       { unit: "盒", conversionQty: 1, costUnit: "盒" }
@@ -50,7 +46,7 @@ const packagingRules = [
   {
     keywords: ["zitec", "wellbeing marker", "xq perfect ink", "補充墨水", "白板筆墨水", "墨水"],
     name: "ZITEC WellBeing Marker 補充墨水",
-    category: "耗材",
+    category: "筆/粉筆/墨水",
     rules: [
       { unit: "盒", conversionQty: 6, costUnit: "瓶" },
       { unit: "箱", conversionQty: 96, costUnit: "瓶" },
@@ -60,7 +56,7 @@ const packagingRules = [
   {
     keywords: ["apio", "白板筆", "wellbeing marker"],
     name: "APIO 白板筆",
-    category: "耗材",
+    category: "筆/粉筆/墨水",
     rules: [
       { unit: "盒", conversionQty: 10, costUnit: "支" },
       { unit: "支", conversionQty: 1, costUnit: "支" }
@@ -69,7 +65,7 @@ const packagingRules = [
   {
     keywords: ["board cleaner", "保養液", "噴瓶", "cleaner"],
     name: "Board Cleaner 保養液噴瓶",
-    category: "耗材",
+    category: "板擦/保養",
     rules: [
       { unit: "箱", conversionQty: 25, costUnit: "瓶" },
       { unit: "瓶", conversionQty: 1, costUnit: "瓶" }
@@ -383,7 +379,7 @@ function normalizeText(value) {
 function normalizeItem(item) {
   return {
     id: item.id || makeId(),
-    category: categories.includes(item.category) ? item.category : categories[0],
+    category: inferCategory(item.name, item.category),
     name: String(item.name || ""),
     qty: Number(item.qty) || 0,
     unit: String(item.unit || "個"),
@@ -399,7 +395,7 @@ function normalizeItem(item) {
 function normalizeCost(cost) {
   return {
     id: cost.id || makeId(),
-    category: categories.includes(cost.category) ? cost.category : categories[0],
+    category: inferCategory(cost.name, cost.category),
     name: String(cost.name || ""),
     unit: String(cost.unit || "個"),
     conversionQty: Number(cost.conversionQty) || 1,
@@ -409,6 +405,17 @@ function normalizeCost(cost) {
     lengthCm: Number(cost.lengthCm) || 0,
     cost: Number(cost.cost) || 0
   };
+}
+
+function inferCategory(name, fallback = "") {
+  const text = normalizeText(`${name || ""} ${fallback || ""}`);
+  if (!text) return "其他";
+  if (/(膜|黑板|白板|投影膜|背投膜|全息膜|光子膜)/.test(text)) return "膜材";
+  if (/(筆|粉筆|墨水|筆蕊|筆芯|chalk|marker|ink|apio|zitec|sangbo)/.test(text)) return "筆/粉筆/墨水";
+  if (/(板擦|保養|清潔|cleaner|擦布|泡棉|防護液|抗菌|噴霧|酒精|次氯酸)/.test(text)) return "板擦/保養";
+  if (/(投影機|觸控|螢幕|電視|燈泡|遙控器|攝影機|麥克風|主機|布幕|支架|線|usb|hdmi|vga|電池|裁切機|設備|模組|腳架|壁掛|延長|喇叭|dongle)/.test(text)) return "設備/配件";
+  if (categories.includes(fallback)) return fallback;
+  return "其他";
 }
 
 function ensureDb() {
@@ -431,11 +438,17 @@ function ensureDb() {
 function migrateDb(db) {
   db.items = (db.items || []).map(normalizeItem);
   db.costs = (db.costs || []).map(normalizeCost);
+  db.items = removeDeprecatedDefaults(db.items);
+  db.costs = removeDeprecatedDefaults(db.costs);
   mergeCostSeeds(db, defaultCosts);
   mergeCostSeeds(db, loadSeedCosts());
   db.history = db.history || [];
   db.currentPhoto = db.currentPhoto || "";
   db.aiMode = db.aiMode || "demo";
+}
+
+function removeDeprecatedDefaults(rows) {
+  return rows.filter((row) => !["鋁框料", "角碼"].includes(row.name));
 }
 
 function mergeCostSeeds(db, costs) {

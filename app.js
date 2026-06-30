@@ -1,4 +1,4 @@
-const categories = ["黑板膜", "白板膜", "框料", "五金", "耗材", "設備"];
+const categories = ["膜材", "筆/粉筆/墨水", "板擦/保養", "設備/配件", "其他"];
 
 let state = {
   items: [],
