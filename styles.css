@@ -2512,6 +2512,8 @@ h2 {
   display: block;
   object-fit: contain;
   opacity: 0.86;
+  transform-origin: 50% 54%;
+  will-change: transform, opacity;
   filter:
     drop-shadow(0 0 8px rgba(198, 255, 218, 0.45))
     drop-shadow(0 0 22px rgba(88, 255, 213, 0.28));
@@ -2668,6 +2670,28 @@ button:hover,
   animation: cameraGlassPulse 2.8s ease-in-out infinite;
 }
 
+.topbar {
+  background:
+    linear-gradient(90deg, rgba(2, 12, 8, 0.58) 0%, rgba(7, 32, 21, 0.42) 48%, rgba(2, 14, 9, 0.56) 100%),
+    linear-gradient(180deg, rgba(248, 255, 246, 0.06), rgba(10, 42, 27, 0.18) 62%, rgba(4, 18, 12, 0.42)),
+    url("assets/forest-poster-v1.png") center 38% / cover no-repeat,
+    linear-gradient(135deg, rgba(4, 17, 12, 0.98), rgba(11, 48, 31, 0.95) 36%, rgba(23, 76, 49, 0.9) 68%, rgba(35, 104, 61, 0.84));
+  background-blend-mode: normal, soft-light, normal, normal;
+}
+
+.topbar::before {
+  background:
+    linear-gradient(180deg, rgba(250, 255, 249, 0.1), transparent 34%),
+    linear-gradient(90deg, rgba(3, 18, 12, 0.18), rgba(247, 255, 246, 0.03) 46%, rgba(3, 18, 12, 0.22));
+  opacity: 0.9;
+  backdrop-filter: blur(1.2px) saturate(0.96);
+  -webkit-backdrop-filter: blur(1.2px) saturate(0.96);
+}
+
+.cyber-scene::before {
+  opacity: 0.42;
+}
+
 @keyframes captureGlassBreath {
   0%,
   100% {
@@ -2725,30 +2749,51 @@ button:hover,
 @keyframes posterButterflyFloatA {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-4deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(-4deg) scaleX(1) scaleY(1);
   }
-  50% {
-    transform: translate3d(-8px, -10px, 0) rotate(5deg) scale(1.04);
+  18% {
+    transform: translate3d(-3px, -4px, 0) rotate(1deg) scaleX(1.1) scaleY(0.93);
+  }
+  38% {
+    transform: translate3d(-8px, -10px, 0) rotate(5deg) scaleX(0.94) scaleY(1.09);
+  }
+  58% {
+    transform: translate3d(-6px, -7px, 0) rotate(2deg) scaleX(1.08) scaleY(0.95);
+  }
+  78% {
+    transform: translate3d(-2px, -3px, 0) rotate(-3deg) scaleX(0.97) scaleY(1.04);
   }
 }
 
 @keyframes posterButterflyFloatB {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(7deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(7deg) scaleX(1) scaleY(1);
+  }
+  22% {
+    transform: translate3d(5px, -4px, 0) rotate(1deg) scaleX(0.93) scaleY(1.1);
   }
   48% {
-    transform: translate3d(8px, -9px, 0) rotate(-3deg) scale(1.05);
+    transform: translate3d(8px, -9px, 0) rotate(-3deg) scaleX(1.1) scaleY(0.94);
+  }
+  70% {
+    transform: translate3d(3px, -5px, 0) rotate(3deg) scaleX(0.96) scaleY(1.06);
   }
 }
 
 @keyframes posterButterflyFloatC {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-10deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(-10deg) scaleX(1) scaleY(1);
+  }
+  20% {
+    transform: translate3d(-2px, 3px, 0) rotate(-4deg) scaleX(1.12) scaleY(0.92);
   }
   54% {
-    transform: translate3d(-6px, 6px, 0) rotate(4deg) scale(1.05);
+    transform: translate3d(-6px, 6px, 0) rotate(4deg) scaleX(0.93) scaleY(1.1);
+  }
+  82% {
+    transform: translate3d(-3px, 2px, 0) rotate(-7deg) scaleX(1.07) scaleY(0.96);
   }
 }
 
