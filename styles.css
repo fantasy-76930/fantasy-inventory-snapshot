@@ -2221,8 +2221,8 @@ h1 {
 }
 
 .butterfly .wing-shell {
-  stroke: rgba(238, 255, 234, 0.58);
-  stroke-width: 1.1;
+  stroke: rgba(247, 255, 232, 0.72);
+  stroke-width: 2.2;
   stroke-linejoin: round;
 }
 
@@ -2237,7 +2237,7 @@ h1 {
   stroke: rgba(238, 255, 226, 0.58);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.55;
+  stroke-width: 1.35;
 }
 
 .butterfly .wing-mark {
@@ -2247,7 +2247,7 @@ h1 {
 
 .butterfly .antenna {
   stroke: rgba(229, 255, 221, 0.72);
-  stroke-width: 1.7;
+  stroke-width: 2.2;
 }
 
 .butterfly .wing-dot {
@@ -2261,9 +2261,9 @@ h1 {
 }
 
 .butterfly .body-core {
-  fill: #0b2a1d;
-  stroke: rgba(234, 255, 222, 0.36);
-  stroke-width: 1;
+  fill: #16452f;
+  stroke: rgba(244, 255, 231, 0.54);
+  stroke-width: 1.5;
 }
 
 .butterfly .body-light {
@@ -2491,5 +2491,346 @@ h2 {
   .hero-pills span {
     min-height: 38px;
     font-size: 14px;
+  }
+}
+
+/* Glass controls and emoji butterfly reset */
+.butterfly-swarm svg.butterfly {
+  display: none;
+}
+
+.butterfly-swarm {
+  display: block;
+  pointer-events: none;
+}
+
+.emoji-butterfly {
+  display: none;
+}
+
+.poster-butterfly {
+  display: block;
+  object-fit: contain;
+  opacity: 0.86;
+  filter:
+    drop-shadow(0 0 8px rgba(198, 255, 218, 0.45))
+    drop-shadow(0 0 22px rgba(88, 255, 213, 0.28));
+  mix-blend-mode: screen;
+}
+
+.emoji-butterfly {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  font-size: 58px;
+  line-height: 1;
+  filter:
+    hue-rotate(86deg)
+    saturate(1.22)
+    brightness(1.04)
+    drop-shadow(0 0 10px rgba(216, 255, 218, 0.72))
+    drop-shadow(0 0 26px rgba(72, 230, 255, 0.32));
+  transform-origin: center;
+}
+
+.emoji-butterfly::after {
+  display: none;
+}
+
+.poster-butterfly::after {
+  display: none;
+}
+
+.poster-butterfly-a {
+  top: 78px;
+  right: 12px;
+  width: 96px;
+  height: 96px;
+  animation: posterButterflyFloatA 10s ease-in-out infinite;
+}
+
+.poster-butterfly-b {
+  top: 218px;
+  right: 28px;
+  width: 72px;
+  height: 72px;
+  animation: posterButterflyFloatB 8.6s ease-in-out infinite;
+}
+
+.poster-butterfly-c {
+  top: 292px;
+  right: 132px;
+  width: 62px;
+  height: 62px;
+  animation: posterButterflyFloatC 8s ease-in-out infinite;
+}
+
+.emoji-butterfly {
+  display: none !important;
+}
+
+.emoji-butterfly.butterfly-a {
+  top: 82px;
+  right: 18px;
+  animation: butterflyEmojiFloatA 9.5s ease-in-out infinite;
+}
+
+.emoji-butterfly.butterfly-b {
+  top: 210px;
+  right: 32px;
+  width: 72px;
+  height: 72px;
+  font-size: 46px;
+  animation: butterflyEmojiFloatB 8.2s ease-in-out infinite;
+}
+
+.emoji-butterfly.butterfly-c {
+  top: 292px;
+  right: 132px;
+  width: 62px;
+  height: 62px;
+  font-size: 40px;
+  animation: butterflyEmojiFloatC 7.8s ease-in-out infinite;
+}
+
+button,
+.secondary-button,
+.ghost-button,
+.hero-pills span {
+  color: rgba(248, 255, 249, 0.96);
+  border: 1px solid rgba(234, 255, 235, 0.32);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(112, 255, 182, 0.08) 42%, rgba(12, 58, 34, 0.22)),
+    rgba(10, 55, 34, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -14px 28px rgba(0, 45, 26, 0.18),
+    0 18px 38px rgba(5, 35, 22, 0.22);
+  backdrop-filter: blur(18px) saturate(1.45);
+  -webkit-backdrop-filter: blur(18px) saturate(1.45);
+}
+
+button:hover,
+.secondary-button:hover,
+.ghost-button:hover {
+  border-color: rgba(246, 255, 240, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 -14px 28px rgba(0, 45, 26, 0.14),
+    0 22px 46px rgba(5, 35, 22, 0.26);
+}
+
+.upload-drop {
+  min-height: 178px;
+  border: 1px solid rgba(242, 255, 239, 0.5);
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.5), transparent 24%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.34), rgba(161, 255, 199, 0.18) 48%, rgba(12, 67, 39, 0.2)),
+    rgba(235, 255, 241, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -24px 42px rgba(36, 116, 72, 0.12),
+    0 24px 60px rgba(7, 38, 24, 0.22),
+    0 0 0 1px rgba(111, 255, 183, 0.08);
+  backdrop-filter: blur(24px) saturate(1.58);
+  -webkit-backdrop-filter: blur(24px) saturate(1.58);
+  transform: translateZ(0);
+  animation: captureGlassBreath 3.6s ease-in-out infinite;
+}
+
+.upload-drop::before {
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.68), transparent 32%),
+    linear-gradient(115deg, transparent 0 20%, rgba(255, 255, 255, 0.34) 42%, transparent 62%);
+  opacity: 0.72;
+}
+
+.upload-drop strong {
+  color: rgba(18, 74, 47, 0.9);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.upload-drop small {
+  color: rgba(38, 82, 61, 0.74);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.camera-icon {
+  border: 1px solid rgba(248, 255, 241, 0.52);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.36), rgba(89, 242, 155, 0.26)),
+    rgba(17, 90, 54, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -12px 22px rgba(14, 77, 45, 0.2),
+    0 18px 44px rgba(45, 255, 151, 0.22);
+  animation: cameraGlassPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes captureGlassBreath {
+  0%,
+  100% {
+    filter: brightness(0.96) saturate(1.02);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    filter: brightness(1.13) saturate(1.16);
+    transform: translateY(-2px) scale(1.012);
+  }
+}
+
+@keyframes cameraGlassPulse {
+  0%,
+  100% {
+    filter: brightness(0.98);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    filter: brightness(1.18);
+    transform: translateY(-1px) scale(1.05);
+  }
+}
+
+@keyframes butterflyEmojiFloatA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-8deg) scale(1);
+  }
+  50% {
+    transform: translate3d(-8px, -12px, 0) rotate(6deg) scale(1.05);
+  }
+}
+
+@keyframes butterflyEmojiFloatB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(7deg) scale(1);
+  }
+  45% {
+    transform: translate3d(10px, -9px, 0) rotate(-5deg) scale(1.04);
+  }
+}
+
+@keyframes butterflyEmojiFloatC {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-10deg) scale(1);
+  }
+  55% {
+    transform: translate3d(-7px, 8px, 0) rotate(4deg) scale(1.06);
+  }
+}
+
+@keyframes posterButterflyFloatA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-4deg) scale(1);
+  }
+  50% {
+    transform: translate3d(-8px, -10px, 0) rotate(5deg) scale(1.04);
+  }
+}
+
+@keyframes posterButterflyFloatB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(7deg) scale(1);
+  }
+  48% {
+    transform: translate3d(8px, -9px, 0) rotate(-3deg) scale(1.05);
+  }
+}
+
+@keyframes posterButterflyFloatC {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-10deg) scale(1);
+  }
+  54% {
+    transform: translate3d(-6px, 6px, 0) rotate(4deg) scale(1.05);
+  }
+}
+
+@media (max-width: 980px) {
+  .inventory-panel .table-wrap {
+    max-height: 430px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 2px;
+  }
+
+  .inventory-panel table,
+  .inventory-panel tbody {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .inventory-panel thead {
+    display: none;
+  }
+
+  #inventoryBody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 82px 92px 42px;
+    gap: 8px;
+    min-width: 0;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 12px;
+    border: 1px solid rgba(44, 118, 78, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 12px 28px rgba(7, 38, 24, 0.08);
+  }
+
+  #inventoryBody td {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  #inventoryBody td:nth-child(1),
+  #inventoryBody td:nth-child(3),
+  #inventoryBody td:nth-child(5),
+  #inventoryBody td:nth-child(6),
+  #inventoryBody td:nth-child(7),
+  #inventoryBody td:nth-child(8),
+  #inventoryBody td:nth-child(9) {
+    display: none;
+  }
+
+  #inventoryBody td:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+
+  #inventoryBody td:nth-child(4) {
+    grid-column: 1;
+  }
+
+  #inventoryBody td:nth-child(10) {
+    grid-column: 2;
+  }
+
+  #inventoryBody td:nth-child(11) {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 48px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  #inventoryBody td:nth-child(12) {
+    grid-column: 4;
+  }
+
+  #inventoryBody .empty-state {
+    display: block !important;
+    grid-column: 1 / -1;
+    padding: 14px;
   }
 }
