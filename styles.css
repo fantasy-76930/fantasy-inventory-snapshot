@@ -2149,18 +2149,18 @@ h1 {
 .butterfly-swarm {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 1;
 }
 
 .butterfly {
   position: absolute;
-  width: 84px;
-  height: 84px;
+  width: 112px;
+  height: 112px;
   opacity: 0.98;
   filter:
-    drop-shadow(0 0 12px rgba(137, 255, 201, 0.42))
-    drop-shadow(0 0 24px rgba(100, 235, 255, 0.28))
-    drop-shadow(0 0 46px rgba(151, 255, 182, 0.22));
+    drop-shadow(0 0 10px rgba(218, 255, 209, 0.5))
+    drop-shadow(0 0 24px rgba(100, 235, 255, 0.32))
+    drop-shadow(0 0 52px rgba(151, 255, 182, 0.26));
   transform-origin: center;
 }
 
@@ -2175,29 +2175,105 @@ h1 {
 }
 
 .butterfly-a {
-  top: 70px;
-  right: 190px;
-  animation: butterflyFlightA 10s ease-in-out infinite;
+  top: 56px;
+  right: 172px;
+  animation: butterflyFlightA 11s cubic-bezier(0.55, 0.02, 0.22, 0.98) infinite;
 }
 
 .butterfly-b {
-  top: 182px;
-  right: 72px;
-  width: 66px;
-  height: 66px;
-  animation: butterflyFlightB 8.8s ease-in-out infinite;
+  top: 174px;
+  right: 58px;
+  width: 86px;
+  height: 86px;
+  animation: butterflyFlightB 9.2s cubic-bezier(0.5, 0, 0.22, 1) infinite;
 }
 
 .butterfly-c {
   top: 126px;
-  right: 320px;
-  width: 58px;
-  height: 58px;
-  animation: butterflyFlightC 7.9s ease-in-out infinite;
+  right: 304px;
+  width: 74px;
+  height: 74px;
+  animation: butterflyFlightC 8.4s cubic-bezier(0.46, 0, 0.26, 1) infinite;
 }
 
-.butterfly path {
-  animation: wingPulse 0.9s ease-in-out infinite alternate;
+.butterfly .wing {
+  transform-box: fill-box;
+}
+
+.butterfly .wing-left {
+  transform-origin: 88% 52%;
+  animation: wingBeatLeft 0.82s ease-in-out infinite alternate;
+}
+
+.butterfly .wing-right {
+  transform-origin: 12% 52%;
+  animation: wingBeatRight 0.82s ease-in-out infinite alternate;
+}
+
+.butterfly-b .wing-left,
+.butterfly-b .wing-right {
+  animation-duration: 0.7s;
+}
+
+.butterfly-c .wing-left,
+.butterfly-c .wing-right {
+  animation-duration: 0.94s;
+}
+
+.butterfly .wing-shell {
+  stroke: rgba(238, 255, 234, 0.58);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+
+.butterfly .wing-glow {
+  mix-blend-mode: screen;
+}
+
+.butterfly .wing-vein,
+.butterfly .wing-mark,
+.butterfly .antenna {
+  fill: none;
+  stroke: rgba(238, 255, 226, 0.58);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.55;
+}
+
+.butterfly .wing-mark {
+  stroke-width: 2.1;
+  opacity: 0.8;
+}
+
+.butterfly .antenna {
+  stroke: rgba(229, 255, 221, 0.72);
+  stroke-width: 1.7;
+}
+
+.butterfly .wing-dot {
+  fill: rgba(244, 255, 216, 0.9);
+  stroke: rgba(38, 104, 63, 0.38);
+  stroke-width: 1;
+}
+
+.butterfly .wing-dot.gold {
+  fill: rgba(255, 241, 132, 0.92);
+}
+
+.butterfly .body-core {
+  fill: #0b2a1d;
+  stroke: rgba(234, 255, 222, 0.36);
+  stroke-width: 1;
+}
+
+.butterfly .body-light {
+  fill: rgba(205, 255, 220, 0.62);
+  opacity: 0.7;
+}
+
+.hero-copy,
+.hero-side {
+  z-index: 6;
 }
 
 .workspace {
@@ -2351,6 +2427,24 @@ h2 {
   }
 }
 
+@keyframes wingBeatLeft {
+  from {
+    transform: perspective(140px) rotateY(9deg) rotateZ(-1deg) scaleX(0.98);
+  }
+  to {
+    transform: perspective(140px) rotateY(-18deg) rotateZ(2deg) scaleX(1.04);
+  }
+}
+
+@keyframes wingBeatRight {
+  from {
+    transform: perspective(140px) rotateY(-9deg) rotateZ(1deg) scaleX(0.98);
+  }
+  to {
+    transform: perspective(140px) rotateY(18deg) rotateZ(-2deg) scaleX(1.04);
+  }
+}
+
 @media (max-width: 980px) {
   .topbar {
     min-height: 520px;
@@ -2370,24 +2464,24 @@ h2 {
   }
 
   .butterfly-a {
-    top: 108px;
-    right: 32px;
-    width: 92px;
-    height: 92px;
+    top: 72px;
+    right: 0;
+    width: 124px;
+    height: 124px;
   }
 
   .butterfly-b {
-    top: 212px;
-    right: 26px;
-    width: 74px;
-    height: 74px;
+    top: 214px;
+    right: 8px;
+    width: 88px;
+    height: 88px;
   }
 
   .butterfly-c {
-    top: 152px;
-    right: 118px;
-    width: 64px;
-    height: 64px;
+    top: 292px;
+    right: 128px;
+    width: 66px;
+    height: 66px;
   }
 
   .hero-pills {

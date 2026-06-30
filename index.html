@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icons/icon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=19" />
+    <link rel="stylesheet" href="styles.css?v=21" />
   </head>
   <body>
     <div class="app-shell">
@@ -21,47 +21,107 @@
           <div class="forest-layer forest-mid"></div>
           <div class="forest-layer forest-front"></div>
           <div class="butterfly-swarm">
-            <svg class="butterfly butterfly-a" viewBox="0 0 120 120" role="presentation">
+            <svg class="butterfly butterfly-a" viewBox="0 0 160 160" role="presentation">
               <defs>
-                <linearGradient id="wingA" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#d8ff87" />
-                  <stop offset="50%" stop-color="#7fffd4" />
-                  <stop offset="100%" stop-color="#59f29b" />
+                <linearGradient id="wingA" x1="12%" y1="4%" x2="92%" y2="96%">
+                  <stop offset="0%" stop-color="#efffae" />
+                  <stop offset="38%" stop-color="#92ffd2" />
+                  <stop offset="72%" stop-color="#22d889" />
+                  <stop offset="100%" stop-color="#0c593b" />
                 </linearGradient>
+                <radialGradient id="wingGlowA" cx="50%" cy="45%" r="58%">
+                  <stop offset="0%" stop-color="#f7fff1" stop-opacity="0.78" />
+                  <stop offset="52%" stop-color="#79ffd1" stop-opacity="0.24" />
+                  <stop offset="100%" stop-color="#022817" stop-opacity="0.02" />
+                </radialGradient>
               </defs>
-              <path d="M58 58C30 55 15 30 20 8C42 8 57 25 58 58Z" fill="url(#wingA)" opacity="0.9" />
-              <path d="M62 58C90 55 105 30 100 8C78 8 63 25 62 58Z" fill="url(#wingA)" opacity="0.92" />
-              <path d="M58 62C34 66 22 84 28 108C46 104 57 89 58 62Z" fill="url(#wingA)" opacity="0.78" />
-              <path d="M62 62C86 66 98 84 92 108C74 104 63 89 62 62Z" fill="url(#wingA)" opacity="0.8" />
-              <rect x="57" y="34" width="6" height="38" rx="3" fill="#123222" />
+              <g class="wing wing-left">
+                <path class="wing-shell" d="M77 76C39 72 13 45 16 13C49 9 75 32 82 76Z" fill="url(#wingA)" />
+                <path class="wing-glow" d="M76 72C45 68 25 45 25 22C51 24 70 41 78 72Z" fill="url(#wingGlowA)" />
+                <path class="wing-shell" d="M76 83C38 88 19 113 33 145C59 139 77 114 82 84Z" fill="url(#wingA)" opacity="0.86" />
+                <path class="wing-vein" d="M80 77C61 59 43 39 24 20M79 78C61 72 43 67 22 64M78 84C59 100 48 119 36 143M79 83C58 88 43 96 29 112" />
+                <circle class="wing-dot" cx="40" cy="35" r="4" />
+                <circle class="wing-dot" cx="52" cy="102" r="3.4" />
+              </g>
+              <g class="wing wing-right">
+                <path class="wing-shell" d="M83 76C121 72 147 45 144 13C111 9 85 32 78 76Z" fill="url(#wingA)" />
+                <path class="wing-glow" d="M84 72C115 68 135 45 135 22C109 24 90 41 82 72Z" fill="url(#wingGlowA)" />
+                <path class="wing-shell" d="M84 83C122 88 141 113 127 145C101 139 83 114 78 84Z" fill="url(#wingA)" opacity="0.86" />
+                <path class="wing-vein" d="M80 77C99 59 117 39 136 20M81 78C99 72 117 67 138 64M82 84C101 100 112 119 124 143M81 83C102 88 117 96 131 112" />
+                <circle class="wing-dot" cx="120" cy="35" r="4" />
+                <circle class="wing-dot" cx="108" cy="102" r="3.4" />
+              </g>
+              <path class="antenna" d="M76 48C66 34 56 31 47 28M84 48C94 34 104 31 113 28" />
+              <ellipse class="body-core" cx="80" cy="78" rx="5.6" ry="39" />
+              <ellipse class="body-light" cx="80" cy="62" rx="3" ry="13" />
             </svg>
-            <svg class="butterfly butterfly-b" viewBox="0 0 120 120" role="presentation">
+            <svg class="butterfly butterfly-b" viewBox="0 0 160 160" role="presentation">
               <defs>
-                <linearGradient id="wingB" x1="0%" y1="20%" x2="100%" y2="80%">
-                  <stop offset="0%" stop-color="#f5ffb0" />
-                  <stop offset="45%" stop-color="#96ffcf" />
-                  <stop offset="100%" stop-color="#67d9ff" />
+                <linearGradient id="wingB" x1="4%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="34%" stop-color="#91fff0" />
+                  <stop offset="72%" stop-color="#4fc8ff" />
+                  <stop offset="100%" stop-color="#07486a" />
                 </linearGradient>
+                <radialGradient id="wingGlowB" cx="50%" cy="38%" r="62%">
+                  <stop offset="0%" stop-color="#f5fff8" stop-opacity="0.84" />
+                  <stop offset="54%" stop-color="#78e7ff" stop-opacity="0.28" />
+                  <stop offset="100%" stop-color="#052236" stop-opacity="0.04" />
+                </radialGradient>
               </defs>
-              <path d="M58 56C36 49 26 28 36 10C54 14 61 32 58 56Z" fill="url(#wingB)" opacity="0.88" />
-              <path d="M62 56C84 49 94 28 84 10C66 14 59 32 62 56Z" fill="url(#wingB)" opacity="0.9" />
-              <path d="M58 64C40 72 34 90 42 108C54 100 59 82 58 64Z" fill="url(#wingB)" opacity="0.7" />
-              <path d="M62 64C80 72 86 90 78 108C66 100 61 82 62 64Z" fill="url(#wingB)" opacity="0.72" />
-              <rect x="57" y="34" width="6" height="40" rx="3" fill="#102c1f" />
+              <g class="wing wing-left">
+                <path class="wing-shell" d="M78 73C45 62 27 34 41 9C68 16 83 42 83 74Z" fill="url(#wingB)" />
+                <path class="wing-glow" d="M78 70C55 59 43 38 48 21C67 30 77 48 80 70Z" fill="url(#wingGlowB)" />
+                <path class="wing-shell" d="M76 86C45 96 36 123 52 149C70 137 81 113 82 86Z" fill="url(#wingB)" opacity="0.82" />
+                <path class="wing-vein" d="M80 75C66 54 56 33 43 12M80 76C63 69 49 61 36 48M79 87C65 106 58 126 52 148M79 86C63 92 50 103 40 118" />
+                <path class="wing-mark" d="M53 34C59 39 63 45 64 53" />
+                <circle class="wing-dot" cx="57" cy="116" r="3.6" />
+              </g>
+              <g class="wing wing-right">
+                <path class="wing-shell" d="M82 73C115 62 133 34 119 9C92 16 77 42 77 74Z" fill="url(#wingB)" />
+                <path class="wing-glow" d="M82 70C105 59 117 38 112 21C93 30 83 48 80 70Z" fill="url(#wingGlowB)" />
+                <path class="wing-shell" d="M84 86C115 96 124 123 108 149C90 137 79 113 78 86Z" fill="url(#wingB)" opacity="0.82" />
+                <path class="wing-vein" d="M80 75C94 54 104 33 117 12M80 76C97 69 111 61 124 48M81 87C95 106 102 126 108 148M81 86C97 92 110 103 120 118" />
+                <path class="wing-mark" d="M107 34C101 39 97 45 96 53" />
+                <circle class="wing-dot" cx="103" cy="116" r="3.6" />
+              </g>
+              <path class="antenna" d="M76 50C66 37 58 33 49 31M84 50C94 37 102 33 111 31" />
+              <ellipse class="body-core" cx="80" cy="80" rx="5" ry="35" />
+              <ellipse class="body-light" cx="80" cy="66" rx="2.6" ry="12" />
             </svg>
-            <svg class="butterfly butterfly-c" viewBox="0 0 120 120" role="presentation">
+            <svg class="butterfly butterfly-c" viewBox="0 0 160 160" role="presentation">
               <defs>
-                <linearGradient id="wingC" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#d3ff8f" />
-                  <stop offset="55%" stop-color="#5fffcf" />
-                  <stop offset="100%" stop-color="#c8ffef" />
+                <linearGradient id="wingC" x1="8%" y1="0%" x2="94%" y2="98%">
+                  <stop offset="0%" stop-color="#fff7a8" />
+                  <stop offset="32%" stop-color="#c6ff85" />
+                  <stop offset="66%" stop-color="#5effc5" />
+                  <stop offset="100%" stop-color="#0f6f49" />
                 </linearGradient>
+                <radialGradient id="wingGlowC" cx="50%" cy="46%" r="60%">
+                  <stop offset="0%" stop-color="#fffde0" stop-opacity="0.76" />
+                  <stop offset="52%" stop-color="#9dffba" stop-opacity="0.28" />
+                  <stop offset="100%" stop-color="#0d2c1d" stop-opacity="0.04" />
+                </radialGradient>
               </defs>
-              <path d="M58 58C32 52 19 34 24 12C42 14 55 30 58 58Z" fill="url(#wingC)" opacity="0.9" />
-              <path d="M62 58C88 52 101 34 96 12C78 14 65 30 62 58Z" fill="url(#wingC)" opacity="0.9" />
-              <path d="M58 62C37 68 28 86 34 106C49 100 58 84 58 62Z" fill="url(#wingC)" opacity="0.72" />
-              <path d="M62 62C83 68 92 86 86 106C71 100 62 84 62 62Z" fill="url(#wingC)" opacity="0.72" />
-              <rect x="57" y="34" width="6" height="40" rx="3" fill="#173527" />
+              <g class="wing wing-left">
+                <path class="wing-shell" d="M77 76C43 71 20 52 22 20C52 17 75 36 83 76Z" fill="url(#wingC)" />
+                <path class="wing-glow" d="M76 72C50 67 33 51 33 29C55 30 71 45 79 72Z" fill="url(#wingGlowC)" />
+                <path class="wing-shell" d="M76 83C42 92 28 117 42 146C64 139 78 113 82 83Z" fill="url(#wingC)" opacity="0.84" />
+                <path class="wing-vein" d="M80 77C61 60 46 42 25 22M79 78C61 75 45 72 26 69M78 84C60 101 51 122 43 144M79 84C61 90 48 100 35 113" />
+                <circle class="wing-dot gold" cx="44" cy="42" r="4.2" />
+                <circle class="wing-dot gold" cx="54" cy="116" r="3.2" />
+              </g>
+              <g class="wing wing-right">
+                <path class="wing-shell" d="M83 76C117 71 140 52 138 20C108 17 85 36 77 76Z" fill="url(#wingC)" />
+                <path class="wing-glow" d="M84 72C110 67 127 51 127 29C105 30 89 45 81 72Z" fill="url(#wingGlowC)" />
+                <path class="wing-shell" d="M84 83C118 92 132 117 118 146C96 139 82 113 78 83Z" fill="url(#wingC)" opacity="0.84" />
+                <path class="wing-vein" d="M80 77C99 60 114 42 135 22M81 78C99 75 115 72 134 69M82 84C100 101 109 122 117 144M81 84C99 90 112 100 125 113" />
+                <circle class="wing-dot gold" cx="116" cy="42" r="4.2" />
+                <circle class="wing-dot gold" cx="106" cy="116" r="3.2" />
+              </g>
+              <path class="antenna" d="M76 49C67 36 57 31 48 29M84 49C93 36 103 31 112 29" />
+              <ellipse class="body-core" cx="80" cy="79" rx="5.4" ry="37" />
+              <ellipse class="body-light" cx="80" cy="64" rx="2.8" ry="12" />
             </svg>
           </div>
         </div>
@@ -232,6 +292,6 @@
       </tr>
     </template>
 
-    <script src="app.js?v=19"></script>
+    <script src="app.js?v=21"></script>
   </body>
 </html>
