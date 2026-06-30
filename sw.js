@@ -1,4 +1,4 @@
-const cacheName = "fantasy-inventory-v30";
+const cacheName = "fantasy-inventory-v31";
 const assets = [
   "./",
   "./index.html",
@@ -29,6 +29,7 @@ const assets = [
   "./styles.css?v=28",
   "./styles.css?v=29",
   "./styles.css?v=30",
+  "./styles.css?v=31",
   "./app.js",
   "./app.js?v=6",
   "./app.js?v=7",
@@ -55,6 +56,7 @@ const assets = [
   "./app.js?v=28",
   "./app.js?v=29",
   "./app.js?v=30",
+  "./app.js?v=31",
   "./manifest.webmanifest",
   "./apple-touch-icon.png",
   "./assets/forest-poster-v1.png",
