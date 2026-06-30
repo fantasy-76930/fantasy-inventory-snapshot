@@ -3353,3 +3353,274 @@ button:not(.icon-button)::after {
     border-radius: 24px;
   }
 }
+
+/* v28 mobile interaction and proportion fixes */
+.topbar::before,
+.topbar::after,
+.login-page::before,
+.cyber-scene,
+.butterfly-swarm,
+button::before,
+button::after,
+.upload-drop::before,
+.upload-drop::after {
+  pointer-events: none !important;
+}
+
+button,
+.upload-drop,
+.secondary-button,
+.ghost-button,
+.icon-button {
+  position: relative;
+  z-index: 5;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.workspace {
+  position: relative;
+  z-index: 8;
+}
+
+.upload-drop {
+  background:
+    url("assets/ui/drop-capture.png?v=29") center / 100% 100% no-repeat !important;
+}
+
+.upload-drop input {
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-drop > :not(input) {
+  position: relative;
+  z-index: 3;
+  pointer-events: none;
+}
+
+button:not(.icon-button),
+.secondary-button,
+.ghost-button {
+  cursor: pointer;
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    width: 100%;
+    padding: max(10px, env(safe-area-inset-top)) 10px calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .topbar {
+    position: relative !important;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    min-height: auto !important;
+    padding: calc(18px + env(safe-area-inset-top)) 18px 76px;
+    border-radius: 0 0 28px 28px;
+    overflow: hidden;
+    background-position: center 24%;
+  }
+
+  .topbar::after {
+    bottom: -72px;
+    height: 150px;
+  }
+
+  .hero-copy {
+    max-width: 100%;
+    padding-top: 0;
+  }
+
+  .hero-copy h1 {
+    max-width: 310px;
+    font-size: 34px;
+    line-height: 1.08;
+  }
+
+  .hero-note {
+    max-width: 330px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .hero-pills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    max-width: 340px;
+  }
+
+  .hero-pills span {
+    min-height: 40px;
+    padding-left: 42px;
+    padding-right: 10px;
+    font-size: 13px;
+    background-size: 100% 100% !important;
+  }
+
+  .hero-side {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .total-box {
+    min-height: 92px;
+    padding: 18px;
+  }
+
+  #logoutBtn {
+    min-height: 48px;
+    padding-left: 58px;
+    padding-right: 18px;
+  }
+
+  .workspace {
+    margin-top: -54px;
+    gap: 14px;
+  }
+
+  section {
+    border-radius: 24px;
+  }
+
+  .capture-panel {
+    padding-top: 18px;
+  }
+
+  #newSnapshotBtn {
+    min-height: 52px;
+    padding-left: 60px;
+  }
+
+  .upload-drop {
+    min-height: 178px !important;
+    border-radius: 26px;
+    padding: 22px 20px;
+    background-size: 100% 100% !important;
+    box-shadow:
+      0 18px 46px rgba(4, 30, 19, 0.16),
+      0 0 28px rgba(102, 255, 183, 0.1) !important;
+  }
+
+  .upload-drop .camera-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .upload-drop strong {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .upload-drop small {
+    max-width: 290px;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .photo-preview {
+    height: 190px;
+    border-radius: 22px;
+  }
+
+  .actions-row {
+    gap: 10px;
+  }
+
+  .actions-row button {
+    min-height: 52px;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-copy h1 {
+    font-size: 31px;
+  }
+
+  .hero-pills {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .upload-drop {
+    min-height: 168px !important;
+  }
+}
+
+/* v29 mobile proportion polish */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.topbar,
+.workspace,
+section {
+  max-width: 100%;
+}
+
+.upload-drop::before,
+.upload-drop::after {
+  display: none !important;
+}
+
+.upload-drop strong,
+.upload-drop small {
+  max-width: min(100%, 310px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.upload-drop strong {
+  color: rgba(249, 255, 250, 0.98);
+  text-shadow:
+    0 1px 2px rgba(2, 18, 12, 0.5),
+    0 0 18px rgba(189, 255, 218, 0.2);
+}
+
+.upload-drop small {
+  color: rgba(237, 255, 246, 0.86);
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    width: 100%;
+  }
+
+  .hero-copy,
+  .hero-note,
+  .hero-pills,
+  .hero-side {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero-copy h1 {
+    width: min(100%, 340px);
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-wrap: balance;
+  }
+
+  .upload-drop {
+    min-height: 178px !important;
+    padding: 24px 22px;
+    gap: 9px;
+  }
+}
