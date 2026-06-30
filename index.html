@@ -11,7 +11,7 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icons/icon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=29" />
+    <link rel="stylesheet" href="styles.css?v=30" />
   </head>
   <body>
     <div class="app-shell">
@@ -135,11 +135,11 @@
           <p class="eyebrow">PWA 盤點工具</p>
           <h1>奇幻庫存快拍系統</h1>
           <p class="hero-note">拍照盤點、成本換算、每月紀錄，整理成一個真正順手的手機工具。</p>
-          <div class="hero-pills">
-            <span>拍照上傳</span>
-            <span>AI 辨識</span>
-            <span>成本換算</span>
-            <span>歷史變化</span>
+          <div class="hero-pills" aria-label="快速操作">
+            <button id="quickCaptureBtn" type="button">拍照上傳</button>
+            <button id="quickAiBtn" type="button">AI 辨識</button>
+            <button id="quickCostBtn" type="button">成本換算</button>
+            <button id="quickHistoryBtn" type="button">歷史變化</button>
           </div>
         </div>
         <div class="hero-side">
@@ -298,6 +298,6 @@
       </tr>
     </template>
 
-    <script src="app.js?v=29"></script>
+    <script src="app.js?v=30"></script>
   </body>
 </html>

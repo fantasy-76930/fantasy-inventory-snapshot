@@ -3624,3 +3624,59 @@ section {
     gap: 9px;
   }
 }
+
+/* v30 real hero action buttons */
+.hero-pills button {
+  min-height: 46px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px 0 58px !important;
+  border: 0 !important;
+  border-radius: 999px;
+  background:
+    var(--premium-btn-art, url("assets/ui/pill-1.png")) center / 100% 100% no-repeat !important;
+  color: rgba(250, 255, 250, 0.98) !important;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  box-shadow: none !important;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hero-pills button:nth-child(1) {
+  --premium-btn-art: url("assets/ui/pill-1.png");
+}
+
+.hero-pills button:nth-child(2) {
+  --premium-btn-art: url("assets/ui/pill-2.png");
+}
+
+.hero-pills button:nth-child(3) {
+  --premium-btn-art: url("assets/ui/pill-3.png");
+}
+
+.hero-pills button:nth-child(4) {
+  --premium-btn-art: url("assets/ui/pill-4.png");
+}
+
+.hero-pills button::before,
+.hero-pills button::after {
+  pointer-events: none !important;
+}
+
+.hero-pills button:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+@media (max-width: 980px) {
+  .hero-pills button {
+    min-height: 42px !important;
+    padding-left: 52px !important;
+    padding-right: 14px !important;
+    font-size: 13px;
+  }
+}

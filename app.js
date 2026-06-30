@@ -18,6 +18,12 @@ const photoInput = document.querySelector("#photoInput");
 const photoPreview = document.querySelector("#photoPreview");
 const aiStatus = document.querySelector("#aiStatus");
 
+function scrollToSection(selector) {
+  const target = document.querySelector(selector);
+  if (!target) return;
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 async function api(path, options = {}) {
   const response = await fetch(path, {
     headers: { "Content-Type": "application/json", ...(options.headers || {}) },
@@ -433,6 +439,16 @@ document.querySelector("#addCostBtn").addEventListener("click", addCostItem);
 document.querySelector("#newSnapshotBtn").addEventListener("click", saveSnapshot);
 document.querySelector("#exportExcelBtn").addEventListener("click", exportExcel);
 document.querySelector("#exportPdfBtn").addEventListener("click", exportPdf);
+document.querySelector("#quickCaptureBtn")?.addEventListener("click", () => {
+  scrollToSection(".capture-panel");
+  photoInput?.click();
+});
+document.querySelector("#quickAiBtn")?.addEventListener("click", () => {
+  scrollToSection(".capture-panel");
+  detectInventory();
+});
+document.querySelector("#quickCostBtn")?.addEventListener("click", () => scrollToSection(".cost-panel"));
+document.querySelector("#quickHistoryBtn")?.addEventListener("click", () => scrollToSection(".history-panel"));
 document.querySelector("#logoutBtn").addEventListener("click", async () => {
   await fetch("/api/logout", { method: "POST" });
   location.href = "/login";
