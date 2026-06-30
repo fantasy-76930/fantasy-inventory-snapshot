@@ -1837,10 +1837,9 @@ body {
 
 body::before {
   background:
-    linear-gradient(180deg, rgba(125, 255, 196, 0.08), transparent 22%),
-    linear-gradient(90deg, rgba(83, 255, 174, 0.08) 0 1px, transparent 1px 132px),
-    linear-gradient(0deg, rgba(92, 255, 181, 0.04) 0 1px, transparent 1px 72px);
-  opacity: 1;
+    radial-gradient(circle at 78% 8%, rgba(110, 255, 197, 0.13), transparent 28%),
+    linear-gradient(180deg, rgba(125, 255, 196, 0.06), transparent 24%);
+  opacity: 0.85;
 }
 
 body::after {
@@ -1863,9 +1862,8 @@ body::after {
 
 .topbar::before {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 36%),
-    linear-gradient(90deg, rgba(122, 255, 188, 0.08) 0 1px, transparent 1px 118px),
-    linear-gradient(180deg, transparent 0 58%, rgba(98, 255, 190, 0.05) 58% 59%, transparent 59% 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 34%),
+    radial-gradient(circle at 82% 18%, rgba(132, 255, 206, 0.12), transparent 32%);
 }
 
 .topbar::after {
@@ -1891,17 +1889,16 @@ body::after {
 
 .cyber-scene::before {
   background:
-    linear-gradient(90deg, transparent 0 12%, rgba(117, 255, 186, 0.14) 12% 12.4%, transparent 12.6% 46%, rgba(117, 255, 186, 0.09) 46% 46.2%, transparent 46.4% 100%),
-    linear-gradient(180deg, rgba(148, 255, 207, 0.08), transparent 25%);
-  mix-blend-mode: screen;
+    radial-gradient(circle at 72% 24%, rgba(144, 255, 211, 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(148, 255, 207, 0.05), transparent 28%);
+  mix-blend-mode: soft-light;
 }
 
 .cyber-scene::after {
   inset: auto 0 0;
   height: 180px;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(4, 19, 12, 0.18)),
-    repeating-linear-gradient(90deg, rgba(31, 111, 65, 0.2) 0 4px, rgba(10, 42, 24, 0.08) 4px 14px);
+    linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(4, 19, 12, 0.14));
 }
 
 .forest-layer {
@@ -1910,6 +1907,7 @@ body::after {
   right: -6%;
   bottom: 62px;
   height: 180px;
+  display: none;
   filter: drop-shadow(0 0 22px rgba(87, 255, 168, 0.14));
 }
 
