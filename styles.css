@@ -4205,3 +4205,70 @@ section::after,
     opacity: 0;
   }
 }
+
+/* v35 button lock: keep every control metrically fixed */
+button,
+.secondary-button,
+.ghost-button,
+.login-box button,
+.hero-pills button {
+  box-sizing: border-box !important;
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+  transform: none !important;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease,
+    color 180ms ease !important;
+}
+
+.hero-pills button {
+  min-height: 54px !important;
+  max-height: 54px !important;
+}
+
+button:hover,
+.secondary-button:hover,
+.ghost-button:hover,
+.login-box button:hover,
+.hero-pills button:hover,
+button:active,
+.secondary-button:active,
+.ghost-button:active,
+.login-box button:active,
+.hero-pills button:active,
+button:focus,
+.secondary-button:focus,
+.ghost-button:focus,
+.login-box button:focus,
+.hero-pills button:focus {
+  transform: none !important;
+}
+
+button:hover,
+.secondary-button:hover,
+.ghost-button:hover,
+.login-box button:hover,
+.hero-pills button:hover {
+  filter: brightness(1.06) saturate(1.03);
+}
+
+button:active,
+.secondary-button:active,
+.ghost-button:active,
+.login-box button:active,
+.hero-pills button:active {
+  filter: brightness(0.99) saturate(1.01);
+}
+
+button > span,
+.secondary-button > span,
+.ghost-button > span,
+.login-box button > span,
+.hero-pills button > span {
+  min-width: 0;
+}
