@@ -1,4 +1,4 @@
-const cacheName = "fantasy-inventory-v36";
+const cacheName = "fantasy-inventory-v37";
 const assets = [
   "./",
   "./index.html",
@@ -31,7 +31,7 @@ const assets = [
   "./styles.css?v=30",
   "./styles.css?v=31",
   "./styles.css?v=32",
-  "./styles.css?v=36",
+  "./styles.css?v=37",
   "./app.js",
   "./app.js?v=6",
   "./app.js?v=7",
@@ -60,13 +60,13 @@ const assets = [
   "./app.js?v=30",
   "./app.js?v=31",
   "./app.js?v=32",
-  "./app.js?v=36",
+  "./app.js?v=37",
   "./manifest.webmanifest",
   "./manifest.webmanifest?v=33",
-  "./manifest.webmanifest?v=36",
+  "./manifest.webmanifest?v=37",
   "./apple-touch-icon.png",
   "./apple-touch-icon.png?v=33",
-  "./apple-touch-icon.png?v=36",
+  "./apple-touch-icon.png?v=37",
   "./assets/forest-poster-v1.png",
   "./assets/forest-premium-v2.png",
   "./assets/poster-butterfly-a.png",
@@ -92,19 +92,19 @@ const assets = [
   "./assets/ui/pill-4.png",
   "./icons/apple-touch-icon.png",
   "./icons/apple-touch-icon.png?v=33",
-  "./icons/apple-touch-icon.png?v=36",
+  "./icons/apple-touch-icon.png?v=37",
   "./icons/icon-192.png",
   "./icons/icon-192.png?v=33",
-  "./icons/icon-192.png?v=36",
+  "./icons/icon-192.png?v=37",
   "./icons/icon-512.png",
   "./icons/icon-512.png?v=33",
-  "./icons/icon-512.png?v=36",
+  "./icons/icon-512.png?v=37",
   "./icons/icon-192.svg",
   "./icons/icon-192.svg?v=33",
-  "./icons/icon-192.svg?v=36",
+  "./icons/icon-192.svg?v=37",
   "./icons/icon-512.svg",
   "./icons/icon-512.svg?v=33",
-  "./icons/icon-512.svg?v=36"
+  "./icons/icon-512.svg?v=37"
 ];
 
 self.addEventListener("install", (event) => {
